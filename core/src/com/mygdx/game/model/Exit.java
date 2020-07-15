@@ -1,8 +1,9 @@
-package com.mygdx.game;
+package com.mygdx.game.model;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
+import com.mygdx.game.controller.Assets;
 
 public class Exit extends Rectangle{
 
