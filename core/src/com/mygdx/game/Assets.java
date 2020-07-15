@@ -15,6 +15,8 @@ public class Assets implements Disposable{
 		manager.load("table.png", Texture.class);
 		manager.load("basic.mp3", Music.class);
 		manager.load("jump.wav", Sound.class);
+		manager.load("backBig.png", Texture.class);
+		manager.load("door.png", Texture.class);
 	}
 	
 	

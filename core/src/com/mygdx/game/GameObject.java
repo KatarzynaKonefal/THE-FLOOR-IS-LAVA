@@ -1,6 +1,4 @@
-///**
-// * 
-// */
+
 //package com.mygdx.game;
 //
 //import com.badlogic.gdx.graphics.Texture;
@@ -30,3 +28,4 @@
 //
 //
 //}
+//Wsztsrkie obiekty rysowane w grze, klasa abstrakcyjna

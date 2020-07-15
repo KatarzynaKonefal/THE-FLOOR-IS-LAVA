@@ -7,9 +7,9 @@ import com.mygdx.game.GameBoard;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		config.width = 1000;
-		config.height = 900;
+		config.width = 1920;
+		config.height = 1080;
 		config.resizable = false;
-		new LwjglApplication(new GameBoard(), config);
+		new LwjglApplication(new GameBoard(config.width, config.height), config);
 	}
 }
