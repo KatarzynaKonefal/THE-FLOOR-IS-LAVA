@@ -42,8 +42,7 @@ public class GamePlayView extends AbstractView {
 
 		}, 1);
 	}
-	
-	
+
 	public void create() {
 		assets = new Assets();
 		assets.load();
@@ -61,8 +60,14 @@ public class GamePlayView extends AbstractView {
 
 		lavaPlayer = new LavaPlayer(imagePlayer, assets);
 		safeFields = new ArrayList<SafeField>();
+		for (int i = 1; i < 170; i++) {
+			SafeField s = new SafeField(imageField);
+			s.x = MathUtils.random(LavaGame.height);
+			s.y = 250 * i;
+			safeFields.add(s);
+		}
 
-		 //music.play();
+		// music.play();
 
 		exit = new Exit(imageExit, assets);
 	}
@@ -79,6 +84,14 @@ public class GamePlayView extends AbstractView {
 		update();
 
 		spriteBatch.begin();
+
+		lavaPlayer.draw(spriteBatch);
+
+		for (SafeField s : safeFields) {
+			s.draw(spriteBatch);
+		}
+
+		exit.draw(spriteBatch);
 		stage.draw();
 		spriteBatch.end();
 	}
@@ -155,9 +168,7 @@ public class GamePlayView extends AbstractView {
 //	}
 //	camera.rotate(0.20f);
 
-	
-	
-	//jakby tego nie widzial a wczesniej dzialalo 
+	// jakby tego nie widzial a wczesniej dzialalo
 	private void loadData() {
 
 		imagePlayer = assets.manager.get("sensej.png", Texture.class);
@@ -168,5 +179,3 @@ public class GamePlayView extends AbstractView {
 
 	}
 }
-
-

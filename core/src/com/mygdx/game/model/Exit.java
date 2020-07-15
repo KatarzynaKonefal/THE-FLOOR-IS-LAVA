@@ -10,7 +10,7 @@ public class Exit extends Rectangle{
 	Texture imageField;
 	
 	public Exit (Texture imageField, Assets assets) {
-		imageField = new Texture("sensej.png");
+		imageField = new Texture("door.png");
 		this.height = imageField.getHeight();
 		this.width = imageField.getWidth();
 	}
