@@ -6,9 +6,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.mygdx.game.view.HelloView;
 import com.mygdx.game.view.MainView;
 
-public class GameBoard extends Game {
+public class LavaGame extends Game {
+
 
 	public static String gameName = "Floor Is Lava";
 
@@ -21,7 +23,8 @@ public class GameBoard extends Game {
 
 	@Override
 	public void create() {
-		this.setScreen(new MainView(this));
+		this.setScreen(new HelloView (this));
+//		this.setScreen(new MainView( this));
 
 	}
 

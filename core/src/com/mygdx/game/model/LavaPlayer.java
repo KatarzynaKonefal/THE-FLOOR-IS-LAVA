@@ -1,6 +1,5 @@
 package com.mygdx.game.model;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -18,7 +17,7 @@ public class LavaPlayer extends Rectangle{
 	
 	public LavaPlayer(Texture imagePlayer, Assets assets) {
 		this.imagePlayer = imagePlayer;
-		this.height = imagePlayer.getHeight();
+//		this.height = imagePlayer.getHeight();
 		this.width = imagePlayer.getWidth();
 		sound = assets.manager.get("jump.wav", Sound.class);
 		

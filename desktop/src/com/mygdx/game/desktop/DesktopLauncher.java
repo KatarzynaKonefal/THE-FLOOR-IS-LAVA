@@ -6,7 +6,7 @@ import com.badlogic.gdx.Files.FileType;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.badlogic.gdx.graphics.Texture;
-import com.mygdx.game.GameBoard;
+import com.mygdx.game.LavaGame;
 import com.mygdx.game.controller.Assets;
 
 public class DesktopLauncher {
@@ -15,14 +15,14 @@ public class DesktopLauncher {
 		
 		LwjglApplicationConfiguration floorIsLava = new LwjglApplicationConfiguration();
 		
-		floorIsLava.title = GameBoard.gameName;
+		floorIsLava.title = LavaGame.gameName;
 		
-		floorIsLava.width = GameBoard.width;
-		floorIsLava.height = GameBoard.height;
+		floorIsLava.width = LavaGame.width;
+		floorIsLava.height = LavaGame.height;
 		
 		floorIsLava.resizable = false;
 		
 		
-		new LwjglApplication(new GameBoard(), floorIsLava);
+		new LwjglApplication(new LavaGame(), floorIsLava);
 	}
 }
