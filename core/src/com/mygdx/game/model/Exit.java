@@ -7,10 +7,10 @@ import com.mygdx.game.controller.Assets;
 
 public class Exit extends Rectangle{
 
-	private Texture imageField;
+	Texture imageField;
 	
 	public Exit (Texture imageField, Assets assets) {
-		this.imageField = imageField;
+		imageField = new Texture("sensej.png");
 		this.height = imageField.getHeight();
 		this.width = imageField.getWidth();
 	}

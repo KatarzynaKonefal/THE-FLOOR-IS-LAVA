@@ -14,7 +14,7 @@ public abstract class AbstractView implements Screen{
 	
 	
 	
-	Assets assets;
+
 	
 //	HelloView helloView;
 //	LooserView looserView;

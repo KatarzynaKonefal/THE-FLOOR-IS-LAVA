@@ -11,7 +11,7 @@ public class SafeField extends Rectangle{
 	private Texture imageField;
 	
 	public SafeField (Texture imageField) {
-		this.imageField = imageField;
+	imageField = new Texture("sensej.png");
 		this.height = imageField.getHeight();
 		this.width = imageField.getWidth();
 	}
