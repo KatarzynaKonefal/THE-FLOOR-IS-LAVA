@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.utils.Timer;
+import com.badlogic.gdx.utils.Timer.Task;
 import com.mygdx.game.GameBoard;
 import com.mygdx.game.SafeField;
 import com.mygdx.game.model.LavaPlayer;
@@ -11,8 +13,8 @@ import com.mygdx.game.model.LavaPlayer;
 public class MainView extends AbstractView{
 	
 	private Texture imagePlayer, imageField, imageExit, imageBackground;
-	private LavaPlayer player;
-	private ArrayList<SafeField> safeFields;
+//	private LavaPlayer player;
+//	private ArrayList<SafeField> safeFields;
 	
 	
 
@@ -21,7 +23,26 @@ public class MainView extends AbstractView{
 	public MainView(GameBoard gameBoard) {
 		super(gameBoard);
 		init();
+		
+		
+		
+		//timer do wywalonia koplejnego okna po x czsie 
+		//Hello i instrukcje, po klikaniu? 
+		//Bye Bye, looser/winner po porażce/zwycięstwie
+		
+		Timer.schedule(new Task() {
+			
+			@Override
+			public void run() {
+				gameBoard.setScreen(new GamePlayView(gameBoard));
+			}
+			
+		}, 1);
 	}
+	
+		
+	
+	
 
 	private void init() {
 		
@@ -52,10 +73,10 @@ public class MainView extends AbstractView{
 	//imageBackground = assets.manager.get("backBig.png", Texture.class);
 	//imageBackground = new SpriteBatch("imageBackground". SpriteBatch);
 
-	imagePlayer = assets.manager.get("sensej.png", Texture.class);
-	imageField = assets.manager.get("table.png", Texture.class);
-
-	imageExit = assets.manager.get("door.png", Texture.class);
+//	imagePlayer = assets.manager.get("sensej.png", Texture.class);
+//	imageField = assets.manager.get("table.png", Texture.class);
+//
+//	imageExit = assets.manager.get("door.png", Texture.class);
 	//music = assets.manager.get("basic.mp3", Music.class);
 
 }

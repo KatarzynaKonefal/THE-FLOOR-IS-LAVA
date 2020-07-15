@@ -1,20 +1,28 @@
 package com.mygdx.game.desktop;
 
+import java.io.File;
+
+import com.badlogic.gdx.Files.FileType;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
+import com.badlogic.gdx.graphics.Texture;
 import com.mygdx.game.GameBoard;
+import com.mygdx.game.controller.Assets;
 
 public class DesktopLauncher {
+	
 	public static void main (String[] arg) {
-		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		
-		config.title = GameBoard.gameName;
+		LwjglApplicationConfiguration floorIsLava = new LwjglApplicationConfiguration();
 		
-		config.width = GameBoard.width;
-		config.height = GameBoard.height;
+		floorIsLava.title = GameBoard.gameName;
 		
-		config.resizable = false;
+		floorIsLava.width = GameBoard.width;
+		floorIsLava.height = GameBoard.height;
 		
-		new LwjglApplication(new GameBoard(), config);
+		floorIsLava.resizable = false;
+		
+		
+		new LwjglApplication(new GameBoard(), floorIsLava);
 	}
 }
