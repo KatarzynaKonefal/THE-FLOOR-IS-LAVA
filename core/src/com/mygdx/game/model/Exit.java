@@ -15,8 +15,8 @@ public class Exit extends Rectangle{
 		this.width = imageField.getWidth();
 	}
 	
-	public void draw(SpriteBatch batch) {
-		batch.draw(imageField, 1920, 1080);
+	public void draw(SpriteBatch spriteBatch) {
+		spriteBatch.draw(imageField, 1920, 1080,imageField.getWidth(), imageField.getHeight());
 	}
 
 }

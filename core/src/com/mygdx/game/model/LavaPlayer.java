@@ -9,22 +9,22 @@ import com.mygdx.game.controller.Assets;
 public class LavaPlayer extends Rectangle{
 	
 	private Sound sound;
-	Texture imagePlayer;
+	Texture imagePlayer = new Texture("sensej.png");;
 	public boolean canJump = true;
 	
 	
 	public float jumpVelocity;
 	
 	public LavaPlayer(Texture imagePlayer, Assets assets) {
-		imagePlayer = new Texture("sensej.png");
+		this.imagePlayer = imagePlayer;
 		this.height = imagePlayer.getHeight();
 		this.width = imagePlayer.getWidth();
 		//sound = assets.manager.get("jump.wav", Sound.class);
 		
 	}
 	
-	public void draw(SpriteBatch batch) {
-		batch.draw(imagePlayer, x, y);
+	public void draw(SpriteBatch spriteBatch) {
+		spriteBatch.draw(imagePlayer, x, y, imagePlayer.getWidth(), imagePlayer.getHeight());
 	}
 	
 	public void jump() {

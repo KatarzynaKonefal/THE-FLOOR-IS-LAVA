@@ -16,8 +16,8 @@ public class SafeField extends Rectangle{
 		this.width = imageField.getWidth();
 	}
 	
-	public void draw(SpriteBatch batch) {
-		batch.draw(imageField, x, y);
+	public void draw(SpriteBatch spriteBatch) {
+		spriteBatch.draw(imageField, x, y, imageField.getWidth(), imageField.getHeight());
 	}
 
 }
