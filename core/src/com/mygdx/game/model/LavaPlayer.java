@@ -4,12 +4,13 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.mygdx.game.controller.Assets;
 
 public class LavaPlayer extends Rectangle{
 	
 	private Sound sound;
-	Texture imagePlayer = new Texture("sensej.png");;
+	Texture imagePlayer = new Texture("sensej.png");
 	public boolean canJump = true;
 	
 	

@@ -10,8 +10,8 @@ public class Fire extends Image{
 	int widht = 120;
 	int height = 101;
 	
-	int startX = 200;
-	int startY = 200;
+	int startX = 50;
+	int startY = 50;
 	
 	public Fire () {
 		super(new Texture("fire120x101.png"));

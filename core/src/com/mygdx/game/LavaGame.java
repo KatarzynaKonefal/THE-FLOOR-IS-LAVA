@@ -15,6 +15,9 @@ public class LavaGame extends Game {
 	public static String gameName = "Floor Is Lava";
 
 	boolean paused;
+	
+	//zrobic osobna klase
+	private int points;
 
 	// public i static wymuszone przez DeskopLauncher
 	public static int width = 1920;
@@ -27,6 +30,11 @@ public class LavaGame extends Game {
 //		this.setScreen(new MainView( this));
 
 	}
+	
+	public void addPoint() {
+		points++;
+		
+	}
 
 	
 	public boolean isPaused() {
@@ -36,6 +44,16 @@ public class LavaGame extends Game {
 	public void setPaused(boolean paused) {
 		this.paused = paused;
 	}
+
+
+	public int getPoints() {
+		return points;
+	}
+//dodac render?
+
+//	public void setPoints(int points) {
+//		this.points = points;
+//	}
 }
 
 //package com.mygdx.game;
@@ -199,6 +217,9 @@ public class LavaGame extends Game {
 //			camera.zoom -= 0.02f;
 //
 //		}
+
+
+
 
 //		android
 //		if(Gdx.input.justTouched()) {

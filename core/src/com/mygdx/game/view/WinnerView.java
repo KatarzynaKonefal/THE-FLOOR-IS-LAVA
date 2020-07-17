@@ -14,7 +14,12 @@ public class WinnerView extends AbstractView{
 		// TODO Auto-generated method stub
 		
 	}
+	
+	
+	//again
+	//tablica wynikow
 	//YES MY LORD
 	//yES YOU DID IT 
+//	We hope you had as much fun as we did when writing this code!
 
 }
