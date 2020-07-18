@@ -1,31 +1,26 @@
-
 package com.mygdx.game.model;
-//
-//import com.badlogic.gdx.graphics.Texture;
-//import com.badlogic.gdx.math.Rectangle;
-//
-///**
-// * @author Tofik
-// *
-// */
-//public class GameObject extends Rectangle{
-//	
-//	
-//	
-//		private Texture texture;
-//		
-//		
-//		
-//	public GameObject(Texture texture) {
-//		this.texture = texture;
-//	}
-//	
-//
-//
-//	public Texture getTexture() {
-//		return texture;
-//	}
-//
-//
-//}
-//Wsztsrkie obiekty rysowane w grze, klasa abstrakcyjna
+
+import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
+
+public abstract class GameObject extends Rectangle {
+    protected Texture texture;
+
+    GameObject(Texture texture, Position startPosition) {
+        this.texture = texture;
+        this.x = startPosition.x;
+        this.y = startPosition.y;
+        this.height = texture.getHeight();
+        this.width = texture.getWidth();
+    }
+
+    public void draw(SpriteBatch batch) {
+        batch.draw(texture, x, y);
+    }
+
+    public void updateTexture(Texture texture) {
+        this.texture = texture;
+    }
+}

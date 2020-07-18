@@ -3,22 +3,13 @@ package com.mygdx.game.model;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.mygdx.game.controller.Assets;
+import com.mygdx.game.model.Assets;
 
-public class Exit extends Rectangle{
+public class Exit extends GameObject {
 
-	Texture  imageExit = new Texture("door.png");
-	
-	
-	public Exit (Texture imageExit, Assets assets) {
-		this.imageExit = imageExit;
-		this.height = imageExit.getHeight();
-		this.width = imageExit.getWidth();
+	private Texture imageField;
+
+	public Exit(Texture imageField, Position position) {
+		super(imageField, position);
 	}
-	
-	public void draw(SpriteBatch spriteBatch) {
-		spriteBatch.draw(imageExit, 1920, 1080,imageExit.getWidth(), imageExit.getHeight());
-	}
-
 }

@@ -1,209 +1,142 @@
 package com.mygdx.game.view;
 
-import java.util.ArrayList;
-
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.utils.Timer;
-import com.badlogic.gdx.utils.Timer.Task;
+import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.LavaGame;
-import com.mygdx.game.SafeField;
-import com.mygdx.game.controller.Assets;
-import com.mygdx.game.model.Exit;
-import com.mygdx.game.model.Fire;
-import com.mygdx.game.model.LavaPlayer;
+import com.mygdx.game.controller.IGameController;
+import com.mygdx.game.model.IModelManger;
+import com.mygdx.game.model.SafeField;
 
-public class GamePlayView extends AbstractView {
+public class GameplayView extends ScreenAdapter {
+    protected LavaGame lavaGame;
+    protected IGameController controller;
+    protected IModelManger modelManager;
 
-	//dodaj przycisk, proste menu?, nowe ladowanie
-	Button resetGame;
-	
-	
-	
-	Texture imagePlayer;
+    private Music music;
+
+    private Sprite imageBackgroundSprite;
 
 
+    public GameplayView(LavaGame lavaGame, IGameController controller, IModelManger modelManager) {
+        this.lavaGame = lavaGame;
+        this.controller = controller;
+        this.modelManager = modelManager;
 
-	Texture imageField;
+        imageBackgroundSprite = new Sprite(this.modelManager.getBackground());
+    }
+
+//    @Override
+//    public void show() {
+////        initButtons();
+//    }
+
+    @Override
+    public void render(float deltaTime) {
+        Gdx.gl.glClearColor(0 / 255f, 0 / 255f, 0 / 255f, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        controller.update();
+
+//        Rectangle backgroundRectangle = imageBackgroundSprite.getBoundingRectangle();
+        lavaGame.camera.position.set(modelManager.getPlayer().x + lavaGame.width/3,
+                                     modelManager.getPlayer().y + lavaGame.height/3, 0);
+        lavaGame.camera.update();
+
+        lavaGame.batch.begin();
+        lavaGame.batch.draw(imageBackgroundSprite, (int)(-lavaGame.width / 2),(int) (-lavaGame.height / 2));
+        lavaGame.batch.setProjectionMatrix(lavaGame.camera.combined);
+
+        for (SafeField s : modelManager.getSafeFields()) {
+            s.draw(lavaGame.batch);
+        }
+
+        modelManager.getPlayer().draw(lavaGame.batch);
+
+        modelManager.getExitField().draw(lavaGame.batch);
+
+        lavaGame.batch.end();
+    }
 
 
-
-	private Image imageBackground;
-
-
-
-	Texture imageExit;
-	private Exit exit;
-	private Assets assets;
-	private LavaPlayer lavaPlayer;
-	private Fire fire;
-	private ArrayList<SafeField> safeFields;
-
-	private Music music;
-
-	private float gravity = -20;
-
-	public GamePlayView(LavaGame lavaBoard) {
-		super(lavaBoard);
-
-		Timer.schedule(new Task() {
-
-			@Override
-			public void run() {
-				lavaBoard.setScreen(new LooserView(lavaBoard));
-//				//lavaBoard.setScreen(new MainView( lavaBoard));
-			}
-
-		}, 1);
-	}
-
-	public void create() {
-		assets = new Assets();
-		assets.load();
-		assets.manager.finishLoading();
-
-		if (assets.manager.update()) {
-			loadData();
-			initPlayer();
-			
-		}
-	}
-
-	public void init() {
-		initFire();
-		initPlayer();
-	}
-	protected void initPlayer() {
-		
-
-		lavaPlayer = new LavaPlayer(imagePlayer, assets);
-		safeFields = new ArrayList<SafeField>();
-		for (int i = 1; i < 170; i++) {
-			SafeField s = new SafeField(imageField, assets);
-			s.x = MathUtils.random(LavaGame.height);
-			s.y = 250 * i;
-			safeFields.add(s);
-		}
-
-		// music.play();
-
-		exit = new Exit(imageExit, assets);
-	}
-
-	private void initFire() {
-		fire = new Fire();
-		fire.getRotation();
-		stage.addActor(fire);
-
-	}
-
-	@Override
-	public void render(float delta) {
-		super.render(delta);
-		update();
-
-		spriteBatch.begin();
-			lavaPlayer.draw(spriteBatch);
-			for (SafeField s : safeFields) {
-					s.draw(spriteBatch);
-				}
-			exit.draw(spriteBatch);
-		spriteBatch.end();
-		
-		
-		spriteBatch.begin();
-		stage.draw();
-		spriteBatch.end();
-	}
-
-	private void update() {
-		stage.act();
-	
-		hadleInput();
-
-		lavaPlayer.y += lavaPlayer.jumpVelocity * Gdx.graphics.getDeltaTime();
-
-		if (lavaPlayer.y > 0) {
-			lavaPlayer.jumpVelocity += gravity;
-		} else {
-			lavaPlayer.y = 0;
-			lavaPlayer.canJump = true;
-
-			lavaPlayer.jumpVelocity = 0;
-		}
-
-		for (SafeField s : safeFields) {
-			if (isPlayerOnSafeField(s)) {
-				lavaPlayer.canJump = true;
-				lavaPlayer.jumpVelocity = 0;
-				lavaPlayer.y = s.y + s.height;
-			}
-//			if (isPlayerOnExit(exit)) {
-//				// Gdx.app.exit();
-
-			}
-		}
-//	}
-
-	private boolean isPlayerOnSafeField(SafeField s) {
-		return lavaPlayer.jumpVelocity <= 0 && lavaPlayer.overlaps(s) && !(lavaPlayer.y <= s.y);
-
-	}
-
-//naprawic
-//	private boolean isPlayerOnExit(Exit exit) {
-//		return lavaPlayer.jumpVelocity <= 0 && lavaPlayer.overlaps(exit) && 
-//				lavaPlayer.y == exit.y
-//				&& lavaPlayer.x == exit.x;
-//
-//	}
-			private void hadleInput() {
-
-		if (Gdx.input.isKeyPressed(Keys.A)) {
-			lavaPlayer.x -= 500 * Gdx.graphics.getDeltaTime();
-
-		}
-
-		if (Gdx.input.isKeyPressed(Keys.D)) {
-			lavaPlayer.x += 500 * Gdx.graphics.getDeltaTime();
-
-		}
-		if (Gdx.input.isKeyPressed(Keys.W)) {
-			lavaPlayer.jump();
-
-		}
-		if (Gdx.input.isKeyPressed(Keys.Z)) {
-			camera.zoom += 0.02f;
-
-		}
-
-		if (Gdx.input.isKeyPressed(Keys.X)) {
-			camera.zoom -= 0.02f;
-
-		}
-	}
-	
-//	}
-
-//	android
-//	if(Gdx.input.justTouched()) {
-//		player.jump();
-//	}
-//	camera.rotate(0.20f);
-
-	// jakby tego nie widzial a wczesniej dzialalo
-	private void loadData() {
-
-		imagePlayer = assets.manager.get("sensej.png", Texture.class);
-		imageField = assets.manager.get("table.png", Texture.class);
-
-		imageExit = assets.manager.get("door.png", Texture.class);
-		music = assets.manager.get("basic.mp3", Music.class);
-
-	}
+    @Override
+    public void hide() {
+        Gdx.input.setInputProcessor(null);
+    }
 }
+//    }
+//    public void create() {
+//        assets = new Assets();
+//        assets.load();
+//        assets.manager.finishLoading();
+//
+//        if (assets.manager.update()) {
+//            loadData();
+//            initPlayer();
+//
+//        }
+//    }
+
+//    public void init() {
+//        initFire();
+//        initPlayer();
+//    }
+//    protected void initPlayer() {
+//
+//
+//        lavaPlayer = new LavaPlayer(imagePlayer, assets);
+//        safeFields = new ArrayList<SafeField>();
+//        for (int i = 1; i < 170; i++) {
+//            SafeField s = new SafeField(imageField, assets);
+//            s.x = MathUtils.random(LavaGame.height);
+//            s.y = 250 * i;
+//            safeFields.add(s);
+//        }
+//
+//        // music.play();
+//
+//        exit = new Exit(imageExit, assets);
+//    }
+//
+//    private void initFire() {
+//        fire = new Fire();
+//        fire.getRotation();
+//        stage.addActor(fire);
+//
+//    }
+//
+//    @Override
+//    public void render(float delta) {
+//        super.render(delta);
+//        update();
+//
+//        spriteBatch.begin();
+//        lavaPlayer.draw(spriteBatch);
+//        for (SafeField s : safeFields) {
+//            s.draw(spriteBatch);
+//        }
+//        exit.draw(spriteBatch);
+//        spriteBatch.end();
+//
+//
+//        spriteBatch.begin();
+//        stage.draw();
+//        spriteBatch.end();
+//    }
+////	}
+//
+//    private boolean isPlayerOnSafeField(SafeField s) {
+//        return lavaPlayer.jumpVelocity <= 0 && lavaPlayer.overlaps(s) && !(lavaPlayer.y <= s.y);
+//
+//    }
+//
+//    //naprawic
+////	private boolean isPlayerOnExit(Exit exit) {
+////		return lavaPlayer.jumpVelocity <= 0 && lavaPlayer.overlaps(exit) &&
+////				lavaPlayer.y == exit.y
+////				&& lavaPlayer.x == exit.x;
+////
+////	}
