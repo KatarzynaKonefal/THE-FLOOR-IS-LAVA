@@ -72,7 +72,7 @@ public class GameController implements IGameController {
 		return modelManger.getPlayer().jumpVelocity <= 0 && modelManger.getPlayer().overlaps(s) && !(modelManger.getPlayer().y <= s.y);
 
 	}
-	//naprawic
+
 	private boolean isPlayerOnExit(Exit exit) {
 		return modelManger.getPlayer().overlaps(exit);
 

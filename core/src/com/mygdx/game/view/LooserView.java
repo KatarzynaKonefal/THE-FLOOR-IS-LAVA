@@ -25,16 +25,13 @@ public class LooserView extends GameplayView {
 	private TextureRegionDrawable buttonExitTexRegionDrawable;
 	private ImageButton exitButton;
 
-	private Texture buttonAgainTexture;
-	private TextureRegion buttonAgainTextureRegion;
-	private TextureRegionDrawable buttonAgainTexRegionDrawable;
-	private ImageButton againButton;
 
 
 	public LooserView(LavaGame lavaGame, IGameController controller, IModelManger modelManager) {
 		super(lavaGame, controller, modelManager);
 		stage = new Stage(new StretchViewport(LavaGame.width, LavaGame.height, lavaGame.camera));
 		initButtons();
+
 	}
 
 	@Override
@@ -42,46 +39,36 @@ public class LooserView extends GameplayView {
 		super.render(deltaTime);
 		lavaGame.batch.begin();
 		modelManager.getFire().draw(lavaGame.batch);
-		labelFont.draw(lavaGame.batch, welcomeTxt, 100, 700, (int)(LavaGame.width / 4), Align.center, true);
 
-		stage.addActor(exitButton);
-		stage.addActor(againButton);
+		labelFont.draw(lavaGame.batch, endingTxt, modelManager.getPlayer().x - modelManager.getPlayer().width, modelManager.getPlayer().y +modelManager.getPlayer().height, (int)(LavaGame.width / 4), Align.center, true);
 		lavaGame.batch.end();
+
+		lavaGame.batch.begin();
+		stage.draw();
+		lavaGame.batch.end();
+
+
+
+	}
+
+	@Override
+	public void hide(){
+		Gdx.input.setInputProcessor(null);
 	}
 
 	private void initButtons() {
-		buttonExitTexture = new Texture(Gdx.files.internal("image/kaczucha.png"));
+		buttonExitTexture = new Texture(Gdx.files.internal("image/fire.png"));
 		buttonExitTextureRegion = new TextureRegion(buttonExitTexture);
 		buttonExitTexRegionDrawable = new TextureRegionDrawable(buttonExitTextureRegion);
 		exitButton = new ImageButton(buttonExitTexRegionDrawable);
-		exitButton.setWidth(100);
-		exitButton.setHeight(50);
-		exitButton.setX(100);
-		exitButton.setY(100);
+		exitButton.setWidth(300);
+		exitButton.setHeight(250);
+		exitButton.setX(modelManager.getPlayer().x + modelManager.getPlayer().width);
+		exitButton.setY(modelManager.getPlayer().y + modelManager.getPlayer().height);
 		exitButton.setDebug(true);
 		stage.addActor(exitButton);
 		Gdx.input.setInputProcessor(stage);
 
-		exitButton.addListener(new ClickListener() {
-
-			@Override
-			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-				lavaGame.changeViewToGameplay();
-				System.out.print("tutaj start gry przejscie do okna gry");
-				//rozpoczecie odliczabia czasu
-				return super.touchDown(event, x, y, pointer, button);
-			}
-		});
-		buttonAgainTexture = new Texture(Gdx.files.internal("image/kaczucha.png"));
-		buttonAgainTextureRegion = new TextureRegion(buttonExitTexture);
-		buttonExitTexRegionDrawable = new TextureRegionDrawable(buttonExitTextureRegion);
-		againButton = new ImageButton(buttonExitTexRegionDrawable);
-		againButton.setWidth(100);
-		againButton.setHeight(50);
-		againButton.setX(100);
-		againButton.setY(150);
-		againButton.setDebug(true);
-		stage.addActor(againButton);
 
 		exitButton.addListener(new ClickListener() {
 
@@ -91,22 +78,13 @@ public class LooserView extends GameplayView {
 				return super.touchDown(event, x, y, pointer, button);
 			}
 		});
-
-		againButton.addListener(new ClickListener() {
-			@Override
-			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-				System.out.print("tutaj przejscie do instrukcji dla matołkow");
-				lavaGame.changeViewToWelcomeView();
-				return super.touchDown(event, x, y, pointer, button);
-			}
-		});
+		stage.addActor(exitButton);
 	}
+
 
 	BitmapFont labelFont = new BitmapFont();
 
-	String welcomeTxt = new String("Are you looser baby?\n" +
+	String endingTxt = new String("Are you looser baby?\n" +
 			"\tTry again - button\n" +
 			"\tGet Out - button");
 }
-
-

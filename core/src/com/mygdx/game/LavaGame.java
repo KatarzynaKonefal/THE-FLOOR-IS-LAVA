@@ -53,13 +53,13 @@ public class LavaGame extends Game {
 
         welcomeView = new WelcomeView(this);
         gameplayView = new GameplayView(this, gameController, modelManger);
-        winnerView = new WinnerView(this);
+        winnerView = new WinnerView(this, gameController, modelManger);
 
         batch = new SpriteBatch();
         shapeRenderer = new ShapeRenderer();
         font = new BitmapFont();
-//        setScreen(welcomeView);
-        setScreen(gameplayView);
+        setScreen(welcomeView);
+//        setScreen(gameplayView);
     }
 
     @Override
