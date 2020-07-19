@@ -12,6 +12,8 @@ public class Assets {
 
 	public AssetManager manager;
 	public Map<String,String> textureFilenamesMap;
+	public Map<String, String> musicFilenamesMap;
+	public Map<String, String> soundFilenamesMap;
 
 	public String musicFilename;
 	public String soundFilename;
@@ -28,9 +30,17 @@ public class Assets {
 		textureFilenamesMap.put("SafeFieldStage5", "image/tableStage5.png");
 		textureFilenamesMap.put("ImageBackground", "image/backBig.png");
 		textureFilenamesMap.put("Fire", "image/fire.png");
+		textureFilenamesMap.put("Winner", "image/winner.png");
 
-		musicFilename = "sound/basic.mp3";
-		soundFilename = "sound/jump.wav";
+
+
+		musicFilenamesMap = new HashMap<>();
+		musicFilenamesMap.put("Basic", "sound/basic.mp3");
+		musicFilenamesMap.put("Looser","sound/sreaming.mp3");
+
+		soundFilenamesMap = new HashMap<>();
+		soundFilenamesMap.put("Jump", "sound/jump.wav");
+
 
 	}
 
@@ -39,7 +49,14 @@ public class Assets {
 			manager.load(entry.getValue(), Texture.class);
 		}
 
-		manager.load(musicFilename, Music.class);
-		manager.load(soundFilename, Sound.class);
+		for(Map.Entry<String,String > entry: musicFilenamesMap.entrySet()){
+			manager.load(entry.getValue(), Music.class);
+		}
+
+
+		for(Map.Entry<String,String > entry: soundFilenamesMap.entrySet()){
+			manager.load(entry.getValue(), Sound.class);
+		}
+
 	}
 }

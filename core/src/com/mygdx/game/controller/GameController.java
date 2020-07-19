@@ -2,7 +2,6 @@ package com.mygdx.game.controller;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.utils.Timer;
 import com.mygdx.game.LavaGame;
 import com.mygdx.game.model.*;
 
@@ -11,61 +10,53 @@ public class GameController implements IGameController {
 	LavaGame lavaGame;
 	IModelManger modelManger;
 
-	private int width;
-	private int height;
-
-
-
 	private float gravity = -20;
 
+	int deadPosition;
+
 	public GameController(LavaGame lavaGame,
-						  IModelManger modelManger,
-						  int width,
-						  int height) {
+						  IModelManger modelManger) {
 
 		this.lavaGame = lavaGame;
 		this.modelManger = modelManger;
-
-		this.width = width;
-		this.height = height;
-
+		deadPosition = -5*lavaGame.height/12;
 	}
 
 	@Override
 	public void update() {
-		
-		handleInput();
+		if(modelManger.getPlayer().isAlive) {
+			handleInput();
 
-		float timeDifference = Gdx.graphics.getDeltaTime();
+			float timeDifference = Gdx.graphics.getDeltaTime();
 
-		modelManger.getPlayer().y += modelManger.getPlayer().jumpVelocity * timeDifference;
+			modelManger.getPlayer().y += modelManger.getPlayer().jumpVelocity * timeDifference;
 
-		if (modelManger.getPlayer().y > modelManger.getPlayer().verticalStartPosition) {
-			modelManger.getPlayer().jumpVelocity += gravity;
-		} else {
-			modelManger.getPlayer().y = modelManger.getPlayer().verticalStartPosition;
-			modelManger.getPlayer().canJump = true;
+			if (modelManger.getPlayer().y <= deadPosition) {
+				lavaGame.changeViewToLooser();
+				modelManger.getPlayer().isAlive = false;
+			} else {
+				modelManger.getPlayer().jumpVelocity += gravity;
+			}
 
-			modelManger.getPlayer().jumpVelocity = 0;
-		}
-
-		for (SafeField field : modelManger.getSafeFields()) {
-			if (isPlayerOnSafeField(field)) {
-				boolean isGameContinue = field.updateAvailability(timeDifference);
-				if(isGameContinue) {
-					modelManger.getPlayer().canJump = true;
-					modelManger.getPlayer().jumpVelocity = 0;
-					modelManger.getPlayer().y = field.y + field.height/2;
-				} else {
-					lavaGame.changeViewToLooser();
+			for (SafeField field : modelManger.getSafeFields()) {
+				if (isPlayerOnSafeField(field)) {
+					boolean isGameContinue = field.updateAvailability(timeDifference);
+					if(isGameContinue) {
+						modelManger.getPlayer().canJump = true;
+						modelManger.getPlayer().jumpVelocity = 0;
+						modelManger.getPlayer().y = field.y + field.height/2;
+					} else {
+						lavaGame.changeViewToLooser();
+						modelManger.getPlayer().isAlive = false;
+					}
 				}
 			}
-		}
 
-		if (isPlayerOnExit(modelManger.getExitField())) {
-			lavaGame.changeViewToWinnerView();
+			if (isPlayerOnExit(modelManger.getExitField())) {
+				lavaGame.changeViewToWinnerView();
+				modelManger.getPlayer().isAlive = false;
+			}
 		}
-		
 	}
 
 	private boolean isPlayerOnSafeField(SafeField s) {
@@ -102,6 +93,9 @@ public class GameController implements IGameController {
 			lavaGame.camera.zoom -= 0.02f;
 
 		}
+	}
+
+}
 
 //		android
 //		if(Gdx.input.justTouched()) {
@@ -109,6 +103,3 @@ public class GameController implements IGameController {
 //		}
 //		camera.rotate(0.20f);
 
-	}
-
-}

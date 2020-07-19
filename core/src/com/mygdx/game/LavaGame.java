@@ -47,9 +47,7 @@ public class LavaGame extends Game {
                                        50);
 
         gameController = new GameController(this,
-                                            modelManger,
-                                            width,
-                                            height);
+                                            modelManger);
 
         welcomeView = new WelcomeView(this);
         gameplayView = new GameplayView(this, gameController, modelManger);
@@ -89,6 +87,12 @@ public class LavaGame extends Game {
     }
 
     public void changeViewToWinnerView() {
+        winnerView  = new WinnerView(this, gameController, modelManger);
         setScreen(winnerView);
+    }
+
+    public void reinitializeGame() {
+        modelManger.reinitialize();
+        setScreen(gameplayView);
     }
 }

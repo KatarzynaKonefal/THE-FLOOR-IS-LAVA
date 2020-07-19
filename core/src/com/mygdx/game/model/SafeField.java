@@ -12,9 +12,8 @@ public class SafeField extends GameObject {
 	float timeDifference;
 	int fieldStage;
 	
-	public SafeField (List<Texture> textures, Position position) {
+	public SafeField (Position position) {
 		super(textures.get(0), position);
-		this.textures = textures;
 		timeDifference = 0;
 		fieldStage = 0;
 	}
@@ -26,9 +25,9 @@ public class SafeField extends GameObject {
 		if(this.timeDifference > 0.5) {
 			this.timeDifference -= 0.5;
 			++fieldStage;
-			if(fieldStage < 5) {
-				updateTexture(textures.get(fieldStage));
-			} else {
+//			fieldStage = 0;
+			updateTexture(textures.get(fieldStage));
+			if(fieldStage == 4) {
 				isGameContinue = false;
 			}
 		}

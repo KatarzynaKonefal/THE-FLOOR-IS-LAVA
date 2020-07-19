@@ -11,6 +11,7 @@ import com.mygdx.game.LavaGame;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class ModelManager implements IModelManger {
     LavaGame lavaGame;
@@ -36,7 +37,6 @@ public class ModelManager implements IModelManger {
         if (assets.manager.update()) {
             init();
         }
-
     }
 
     @Override
@@ -62,21 +62,32 @@ public class ModelManager implements IModelManger {
     @Override
     public Fire getFire() {
         return new Fire(assets.manager.get(assets.textureFilenamesMap.get("Fire"), Texture.class),
+                new Position(player.x, player.y), assets.manager.get(assets.musicFilenamesMap.get("Looser"), Music.class));
+    }
+
+    @Override
+    public Winner getWinner(){
+        return new Winner(assets.manager.get(assets.textureFilenamesMap.get("Winner"),Texture.class),
                 new Position(player.x, player.y));
+    }
+
+    @Override
+    public void reinitialize() {
+        init();
     }
 
     private void init() {
 
         // music.play();
 
-        Position exitPosition = new Position(1920, 300);
+        Position exitPosition = new Position(0, 1200);
 
         exit = new Exit(assets.manager.get(assets.textureFilenamesMap.get("Exit"), Texture.class), exitPosition);
 
         Position playerStartPosition = new Position(-lavaGame.width/3, -lavaGame.height/3);
 
         player = new LavaPlayer(assets.manager.get(assets.textureFilenamesMap.get("Player"), Texture.class),
-                                assets.manager.get(assets.soundFilename, Sound.class),
+                                assets.manager.get(assets.soundFilenamesMap.get("Jump"), Sound.class),
                                 playerStartPosition);
 
 
@@ -86,17 +97,13 @@ public class ModelManager implements IModelManger {
             textures.add(assets.manager.get(assets.textureFilenamesMap.get(baseSafeFieldIdentifier + i),
                                             Texture.class));
         }
-        safeFields = new ArrayList<>();
+        SafeField.textures = textures;
 
         Position firstSafeFieldPosition = new Position(playerStartPosition.x + textures.get(0).getWidth()/2,
-                                                       playerStartPosition.y - textures.get(0).getHeight()/2);
-        safeFields.add(new SafeField(textures, firstSafeFieldPosition));
+                playerStartPosition.y - textures.get(0).getHeight()/2);
 
-        for (int i = -1; i < numberOfSafeFields - 1; i++) {
+        FieldGenerator fieldGenerator = new FieldGenerator(this, firstSafeFieldPosition);
 
-//            s.x = MathUtils.random(lavaGame.width);
-            safeFields.add(new SafeField(textures, new Position(200 * i, 200 * i)));
-
-        }
+        safeFields = fieldGenerator.generateFields();
     }
 }

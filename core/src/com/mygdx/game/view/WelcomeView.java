@@ -1,16 +1,13 @@
 package com.mygdx.game.view;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.mygdx.game.LavaGame;
@@ -21,8 +18,9 @@ public class WelcomeView extends ScreenAdapter {
     LavaGame lavaGame;
 
     protected Stage stage;
+    private Button easyButton, hardButton;
 
-    private Texture imageBackground, imageInstruction;
+    private Texture imageBackground, imageInstruction, startButton;
 
     public WelcomeView(LavaGame lavaGame) {
         this.lavaGame = lavaGame;
@@ -55,7 +53,7 @@ public class WelcomeView extends ScreenAdapter {
 
         lavaGame.batch.setProjectionMatrix(lavaGame.camera.combined);
 
-        labelFont.draw(lavaGame.batch, welcomeTxt, 1350, 700, (int)(LavaGame.width / 4), Align.center, true);
+        labelFont.draw(lavaGame.batch, welcomeTxt, 1350, 600, (int)(LavaGame.width / 4), Align.center, true);
         lavaGame.batch.end();
 
         lavaGame.batch.begin();
@@ -68,32 +66,35 @@ public class WelcomeView extends ScreenAdapter {
         Gdx.input.setInputProcessor(null);
     }
     private void initButtons() {
-        Texture buttonStartTexture = new Texture(Gdx.files.internal("image/fire.png"));
-        TextureRegion buttonStartTextureRegion = new TextureRegion(buttonStartTexture);
-        TextureRegionDrawable buttonStartTexRegionDrawable = new TextureRegionDrawable(buttonStartTextureRegion);
-        ImageButton startButton = new ImageButton(buttonStartTexRegionDrawable);
-        startButton.setWidth(200);
-        startButton.setHeight(200);
-        startButton.setX(1500);
-        startButton.setY(800);
-        startButton.setDebug(true);
-        stage.addActor(startButton);
-        Gdx.input.setInputProcessor(stage);
-
-        startButton.addListener(new ClickListener() {
-
+        easyButton = new Button("image/easy.png", 1400, 500, 400, 400);
+        easyButton.addListener(new ClickListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 lavaGame.changeViewToGameplay();
-                System.out.print("tutaj start gry przejscie do okna gry");
-                //rozpoczecie odliczabia czasu
                 return super.touchDown(event, x, y, pointer, button);
             }
         });
 
-        stage.addActor(startButton);
+        Gdx.input.setInputProcessor(stage);
+        stage.addActor(easyButton.getButton());
+
+
+
+
+        hardButton = new Button("image/Hard.png", 1350, 800, 400, 400);
+        hardButton.addListener(new ClickListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                lavaGame.changeViewToGameplay();
+                return super.touchDown(event, x, y, pointer, button);
+            }
+        });
+
+        Gdx.input.setInputProcessor(stage);
+        stage.addActor(hardButton.getButton());
 
     }
+
 
 
     BitmapFont labelFont = new BitmapFont();

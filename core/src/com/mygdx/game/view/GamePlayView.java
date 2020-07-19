@@ -27,15 +27,11 @@ public class GameplayView extends ScreenAdapter {
         imageBackgroundSprite = new Sprite(this.modelManager.getBackground());
     }
 
-//    @Override
-//    public void show() {
-////        initButtons();
-//    }
-
     @Override
     public void render(float deltaTime) {
         Gdx.gl.glClearColor(0 / 255f, 0 / 255f, 0 / 255f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+//        music.play();
 
         controller.update();
 

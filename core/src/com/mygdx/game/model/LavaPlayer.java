@@ -13,6 +13,8 @@ public class LavaPlayer extends GameObject {
 
 	public float verticalStartPosition;
 
+	public boolean isAlive;
+
 	int caneWidth = 200;
 	int robeWith = 100;
 	
@@ -20,13 +22,14 @@ public class LavaPlayer extends GameObject {
 		super(imagePlayer, startPosition);
 		sound = jumpSound;
 		verticalStartPosition = startPosition.y;
+		isAlive = true;
 	}
 	
 	public void jump() {
 		if(canJump && jumpVelocity >= -100 ) {
 			jumpVelocity += 800;
 			canJump = false;
-//			sound.play();
+			sound.play();
 		}
 	}
 
