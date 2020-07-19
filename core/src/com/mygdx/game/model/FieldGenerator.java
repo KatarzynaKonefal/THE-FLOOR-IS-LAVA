@@ -12,23 +12,47 @@ public class FieldGenerator {
 
     List<SafeField> fields;
 
+    int minimalDistanceBetweenFields;
+
     public FieldGenerator(ModelManager modelManager, Position firstFieldPosition) {
         this.modelManager = modelManager;
         this.firstFieldPosition = firstFieldPosition;
     }
 
-    public List<SafeField> generateFields() {
+    public List<SafeField> generateFields(int numberOfSafeFields,
+                                          int minimalDistanceBetweenFields) {
+        this.minimalDistanceBetweenFields = minimalDistanceBetweenFields;
         fields = new ArrayList<>();
 
         fields.add(new SafeField(firstFieldPosition));
 
+        for(int i = 1; i <= 5; ++i) {
+            Position position = new Position(firstFieldPosition.x + i * 600, firstFieldPosition.y);
+            fields.add(new SafeField(position));
+        }
+
+
         long currentTime = System.currentTimeMillis();
         Random generator = new Random(currentTime);
-        int x;
-        int y;
-        for (int i = -1; i < modelManager.numberOfSafeFields - 1; i++) {
-            x  = (generator.nextInt()%(modelManager.getBackground().getWidth()/2 - (int)fields.get(0).width))+((3*modelManager.lavaGame.width)/4);
-            y  = (generator.nextInt()%(modelManager.getBackground().getHeight()/2 - (int)fields.get(0).height))+((3*modelManager.lavaGame.height)/4);
+        int x,y;
+
+        for (int i = 0; i < numberOfSafeFields; i++) {
+            x  = (generator.nextInt()%(modelManager.getBackground().getWidth()/2))
+                    +modelManager.lavaGame.width;
+            y  = (generator.nextInt()%(modelManager.getBackground().getHeight()/2))
+                    +modelManager.lavaGame.height;
+
+            if (x <= 0) {
+                x += (int)fields.get(0).width*2;
+            } else {
+                x -= (int)fields.get(0).width*2;
+            }
+
+            if (y <= 0) {
+                y += (int)fields.get(0).height*2;
+            } else {
+                y -= (int)fields.get(0).height*2;
+            }
 
             SafeField fieldCandidate = new SafeField(new Position(x, y));
             if(validateField(fieldCandidate)){
@@ -53,7 +77,7 @@ public class FieldGenerator {
                 modelManager.getExitField().getX(),
                 modelManager.getExitField().getY());
 
-        if(distance < 400) {
+        if(distance < minimalDistanceBetweenFields) {
             return false;
         }
 
@@ -62,7 +86,7 @@ public class FieldGenerator {
 
     private boolean validateField(SafeField candidateField, SafeField addedField) {
         double distance = Point2D.distance(candidateField.x, candidateField.y, addedField.x, addedField.y);
-        return !(distance < 400);
+        return !(distance < minimalDistanceBetweenFields);
     }
 
 }

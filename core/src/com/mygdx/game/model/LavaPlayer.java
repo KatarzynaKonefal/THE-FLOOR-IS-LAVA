@@ -15,8 +15,8 @@ public class LavaPlayer extends GameObject {
 
 	public boolean isAlive;
 
-	int caneWidth = 200;
-	int robeWith = 100;
+	private double rightSideCoefficient = 0.60;
+	private double leftSideCoefficient = 0.30;
 	
 	public LavaPlayer(Texture imagePlayer, Sound jumpSound, Position startPosition) {
 		super(imagePlayer, startPosition);
@@ -35,7 +35,7 @@ public class LavaPlayer extends GameObject {
 
 	@Override
 	public boolean overlaps(Rectangle r) {
-		return x + robeWith < r.x + r.width && x + width - caneWidth > r.x && y < r.y + r.height/2 && y + height > r.y;
+		return x + leftSideCoefficient * width < r.x + r.width && x + width - rightSideCoefficient * width > r.x && y < r.y + r.height/2 && y + height > r.y;
 	}
 
 

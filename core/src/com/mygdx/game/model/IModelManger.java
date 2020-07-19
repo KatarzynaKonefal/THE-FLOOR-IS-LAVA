@@ -18,6 +18,4 @@ public interface IModelManger {
     Fire getFire();
 
     void reinitialize();
-
-    Winner getWinner();
 }

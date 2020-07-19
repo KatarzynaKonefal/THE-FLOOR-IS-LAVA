@@ -23,7 +23,7 @@ public class LavaGame extends Game {
     BitmapFont font;
 
     IGameController gameController;
-    IModelManger modelManger;
+    IModelManager modelManager;
 
     WelcomeView welcomeView;
     GameplayView gameplayView;
@@ -32,6 +32,10 @@ public class LavaGame extends Game {
 
     static public int width;
     static public int height;
+
+    public Level level;
+
+    public boolean cameraRepositionIsEnable;
 
     public LavaGame(int width, int height) {
         this.width = width;
@@ -42,16 +46,15 @@ public class LavaGame extends Game {
     public void create() {
         camera = new OrthographicCamera(width, height);
         camera.zoom = 1;
+        cameraRepositionIsEnable = true;
 
-        modelManger = new ModelManager(this,
-                                       50);
+        modelManager = new ModelManager(this);
 
         gameController = new GameController(this,
-                                            modelManger);
+                modelManager);
 
-        welcomeView = new WelcomeView(this);
-        gameplayView = new GameplayView(this, gameController, modelManger);
-        winnerView = new WinnerView(this, gameController, modelManger);
+        welcomeView = new WelcomeView(this, modelManager);
+        gameplayView = new GameplayView(this, gameController, modelManager);
 
         batch = new SpriteBatch();
         shapeRenderer = new ShapeRenderer();
@@ -77,22 +80,24 @@ public class LavaGame extends Game {
     }
 
     public void changeViewToLooser() {
-        looserView = new LooserView(this, gameController, modelManger);
+        looserView = new LooserView(this, gameController, modelManager);
         setScreen(looserView);
     }
 
-    public void changeViewToWelcomeView() {
-        welcomeView = new WelcomeView(this);
-        setScreen(welcomeView);
-    }
-
     public void changeViewToWinnerView() {
-        winnerView  = new WinnerView(this, gameController, modelManger);
+        winnerView  = new WinnerView(this, gameController, modelManager);
         setScreen(winnerView);
     }
 
     public void reinitializeGame() {
-        modelManger.reinitialize();
+        modelManager.init(level);
         setScreen(gameplayView);
+    }
+
+    public void changeCameraViewToUser() {
+        camera.position.set(modelManager.getPlayer().x + width/3,
+                modelManager.getPlayer().y + height/3, 0);
+        camera.zoom = 1;
+        camera.update();
     }
 }

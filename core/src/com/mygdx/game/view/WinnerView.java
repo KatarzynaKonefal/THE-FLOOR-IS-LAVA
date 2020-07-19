@@ -8,7 +8,7 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.mygdx.game.LavaGame;
 import com.mygdx.game.controller.IGameController;
-import com.mygdx.game.model.IModelManger;
+import com.mygdx.game.model.IModelManager;
 
 public class WinnerView extends GameplayView {
 
@@ -20,7 +20,7 @@ public class WinnerView extends GameplayView {
             "    YES YOU DID IT\n" +
             "We hope you had as much fun as we did when writing this code!";
 
-    public WinnerView(LavaGame lavaGame, IGameController controller, IModelManger modelManager) {
+    public WinnerView(LavaGame lavaGame, IGameController controller, IModelManager modelManager) {
         super(lavaGame, controller, modelManager);
         stage = new Stage(new StretchViewport(LavaGame.width, LavaGame.height, lavaGame.camera));
         initButtons();
@@ -63,7 +63,7 @@ public class WinnerView extends GameplayView {
     }
 
     private void initButtons() {
-        Button exitButton = new Button("image/exit.png",
+        GameButton exitButton = new GameButton("image/exit.png",
                 modelManager.getPlayer().x + modelManager.getPlayer().width,
                 modelManager.getPlayer().y + modelManager.getPlayer().height,
                 300,
@@ -80,7 +80,7 @@ public class WinnerView extends GameplayView {
         Gdx.input.setInputProcessor(stage);
         stage.addActor(exitButton.getButton());
 
-        Button playAgainButton = new Button("image/start.png",
+        GameButton playAgainButton = new GameButton("image/start.png",
                 modelManager.getPlayer().x + modelManager.getPlayer().width + 300,
                 modelManager.getPlayer().y + modelManager.getPlayer().height,
                 300,

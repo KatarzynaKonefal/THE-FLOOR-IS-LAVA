@@ -6,20 +6,20 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.mygdx.game.LavaGame;
 import com.mygdx.game.controller.IGameController;
-import com.mygdx.game.model.IModelManger;
+import com.mygdx.game.model.IModelManager;
 import com.mygdx.game.model.SafeField;
 
 public class GameplayView extends ScreenAdapter {
     protected LavaGame lavaGame;
     protected IGameController controller;
-    protected IModelManger modelManager;
+    protected IModelManager modelManager;
 
     private Music music;
 
     private Sprite imageBackgroundSprite;
 
 
-    public GameplayView(LavaGame lavaGame, IGameController controller, IModelManger modelManager) {
+    public GameplayView(LavaGame lavaGame, IGameController controller, IModelManager modelManager) {
         this.lavaGame = lavaGame;
         this.controller = controller;
         this.modelManager = modelManager;
@@ -31,14 +31,12 @@ public class GameplayView extends ScreenAdapter {
     public void render(float deltaTime) {
         Gdx.gl.glClearColor(0 / 255f, 0 / 255f, 0 / 255f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-//        music.play();
-
+        lavaGame.camera.update();
         controller.update();
 
-//        Rectangle backgroundRectangle = imageBackgroundSprite.getBoundingRectangle();
-        lavaGame.camera.position.set(modelManager.getPlayer().x + lavaGame.width/3,
-                                     modelManager.getPlayer().y + lavaGame.height/3, 0);
-        lavaGame.camera.update();
+        if(lavaGame.cameraRepositionIsEnable) {
+            lavaGame.changeCameraViewToUser();
+        }
 
         lavaGame.batch.begin();
         lavaGame.batch.draw(imageBackgroundSprite, (int)(-lavaGame.width / 2),(int) (-lavaGame.height / 2));

@@ -9,7 +9,7 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.mygdx.game.LavaGame;
 import com.mygdx.game.controller.IGameController;
-import com.mygdx.game.model.IModelManger;
+import com.mygdx.game.model.IModelManager;
 
 public class LooserView extends GameplayView {
 
@@ -21,7 +21,7 @@ public class LooserView extends GameplayView {
 			"\tTry again - button\n" +
 			"\tGet Out - button";
 
-	public LooserView(LavaGame lavaGame, IGameController controller, IModelManger modelManager) {
+	public LooserView(LavaGame lavaGame, IGameController controller, IModelManager modelManager) {
 		super(lavaGame, controller, modelManager);
 		stage = new Stage(new StretchViewport(LavaGame.width, LavaGame.height, lavaGame.camera));
 
@@ -60,7 +60,7 @@ public class LooserView extends GameplayView {
 	}
 
 	private void initButtons() {
-		Button exitButton = new Button("image/exit.png",
+		GameButton exitButton = new GameButton("image/exit.png",
 				modelManager.getPlayer().x + modelManager.getPlayer().width,
 				modelManager.getPlayer().y + modelManager.getPlayer().height + 100,
 				300,
@@ -77,7 +77,7 @@ public class LooserView extends GameplayView {
 		Gdx.input.setInputProcessor(stage);
 		stage.addActor(exitButton.getButton());
 
-		Button playAgainButton = new Button("image/start.png",
+		GameButton playAgainButton = new GameButton("image/start.png",
 				modelManager.getPlayer().x + modelManager.getPlayer().width ,
 				modelManager.getPlayer().y + modelManager.getPlayer().height,
 				300,

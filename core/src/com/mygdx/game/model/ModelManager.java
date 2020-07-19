@@ -11,9 +11,8 @@ import com.mygdx.game.LavaGame;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
-public class ModelManager implements IModelManger {
+public class ModelManager implements IModelManager {
     LavaGame lavaGame;
     private Assets assets;
 
@@ -23,20 +22,13 @@ public class ModelManager implements IModelManger {
 
     private Music music;
 
-    int numberOfSafeFields;
 
-    public ModelManager(LavaGame lavaGame,
-                        int numberOfSafeFields){
+    public ModelManager(LavaGame lavaGame){
         this.lavaGame = lavaGame;
-        this.numberOfSafeFields = numberOfSafeFields;
 
         assets = new Assets();
         assets.load();
         assets.manager.finishLoading();
-
-        if (assets.manager.update()) {
-            init();
-        }
     }
 
     @Override
@@ -72,21 +64,18 @@ public class ModelManager implements IModelManger {
     }
 
     @Override
-    public void reinitialize() {
-        init();
-    }
-
-    private void init() {
+    public void init(Level level) {
 
         // music.play();
 
-        Position exitPosition = new Position(0, 1200);
+        Texture background = getBackground();
+        Position exitPosition = new Position(background.getWidth()-2*lavaGame.width/3, background.getHeight()-lavaGame.height);
 
         exit = new Exit(assets.manager.get(assets.textureFilenamesMap.get("Exit"), Texture.class), exitPosition);
 
         Position playerStartPosition = new Position(-lavaGame.width/3, -lavaGame.height/3);
 
-        player = new LavaPlayer(assets.manager.get(assets.textureFilenamesMap.get("Player"), Texture.class),
+        player = new LavaPlayer(assets.manager.get(assets.textureFilenamesMap.get(level.playerImageFilename), Texture.class),
                                 assets.manager.get(assets.soundFilenamesMap.get("Jump"), Sound.class),
                                 playerStartPosition);
 
@@ -97,13 +86,14 @@ public class ModelManager implements IModelManger {
             textures.add(assets.manager.get(assets.textureFilenamesMap.get(baseSafeFieldIdentifier + i),
                                             Texture.class));
         }
+        SafeField.timeToDestroy = level.timeToDestroy;
         SafeField.textures = textures;
 
-        Position firstSafeFieldPosition = new Position(playerStartPosition.x + textures.get(0).getWidth()/2,
+        Position firstSafeFieldPosition = new Position(playerStartPosition.x,
                 playerStartPosition.y - textures.get(0).getHeight()/2);
 
         FieldGenerator fieldGenerator = new FieldGenerator(this, firstSafeFieldPosition);
 
-        safeFields = fieldGenerator.generateFields();
+        safeFields = fieldGenerator.generateFields(level.numberOfSafeFields, level.minimalDistanceBetweenFields);
     }
 }

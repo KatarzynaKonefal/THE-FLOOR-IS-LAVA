@@ -1,14 +1,13 @@
 package com.mygdx.game.model;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Rectangle;
 
 import java.util.List;
 
 public class SafeField extends GameObject {
 
 	public static List<Texture> textures;
+	public static double timeToDestroy;
 	float timeDifference;
 	int fieldStage;
 	
@@ -22,10 +21,9 @@ public class SafeField extends GameObject {
 		boolean isGameContinue = true;
 
 		this.timeDifference += timeDifference;
-		if(this.timeDifference > 0.5) {
-			this.timeDifference -= 0.5;
+		if(this.timeDifference > timeToDestroy) {
+			this.timeDifference -= timeToDestroy;
 			++fieldStage;
-//			fieldStage = 0;
 			updateTexture(textures.get(fieldStage));
 			if(fieldStage == 4) {
 				isGameContinue = false;

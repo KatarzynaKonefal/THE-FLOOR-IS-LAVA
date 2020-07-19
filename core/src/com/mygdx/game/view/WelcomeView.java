@@ -6,25 +6,30 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.mygdx.game.LavaGame;
+import com.mygdx.game.model.IModelManager;
+import com.mygdx.game.model.Level;
 
 
 public class WelcomeView extends ScreenAdapter {
 
     LavaGame lavaGame;
+    IModelManager modelManager;
 
     protected Stage stage;
-    private Button easyButton, hardButton;
+    private GameButton easyButton, hardButton;
+
 
     private Texture imageBackground, imageInstruction, startButton;
 
-    public WelcomeView(LavaGame lavaGame) {
+    public WelcomeView(LavaGame lavaGame, IModelManager modelManager) {
         this.lavaGame = lavaGame;
         stage = new Stage(new StretchViewport(LavaGame.width, LavaGame.height, lavaGame.camera));
+
+        this.modelManager = modelManager;
 
         imageBackground = new Texture("image/Hello.gif");
 
@@ -66,10 +71,12 @@ public class WelcomeView extends ScreenAdapter {
         Gdx.input.setInputProcessor(null);
     }
     private void initButtons() {
-        easyButton = new Button("image/easy.png", 1400, 500, 400, 400);
+        easyButton = new GameButton("image/easy.png", 1400, 500, 400, 400);
         easyButton.addListener(new ClickListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                lavaGame.level = new Level("Kaczucha", 100, 250,0.3);
+                modelManager.init(lavaGame.level);
                 lavaGame.changeViewToGameplay();
                 return super.touchDown(event, x, y, pointer, button);
             }
@@ -81,10 +88,12 @@ public class WelcomeView extends ScreenAdapter {
 
 
 
-        hardButton = new Button("image/Hard.png", 1350, 800, 400, 400);
+        hardButton = new GameButton("image/Hard.png", 1350, 800, 400, 400);
         hardButton.addListener(new ClickListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                lavaGame.level = new Level("Player", 70, 350, 0.1);
+                modelManager.init(lavaGame.level);
                 lavaGame.changeViewToGameplay();
                 return super.touchDown(event, x, y, pointer, button);
             }

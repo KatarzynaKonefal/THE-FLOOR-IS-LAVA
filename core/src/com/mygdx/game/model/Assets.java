@@ -18,17 +18,18 @@ public class Assets {
 	public String musicFilename;
 	public String soundFilename;
 
-	public  Assets() {
+	public Assets() {
 		manager = new AssetManager();
 		textureFilenamesMap = new HashMap<>();
 		textureFilenamesMap.put("Player", "image/sensej.png");
+		textureFilenamesMap.put("Kaczucha", "image/kaczucha.png");
 		textureFilenamesMap.put("Exit", "image/door.png");
 		textureFilenamesMap.put("SafeFieldStage1", "image/tableStage1.png");
 		textureFilenamesMap.put("SafeFieldStage2", "image/tableStage2.png");
 		textureFilenamesMap.put("SafeFieldStage3", "image/tableStage3.png");
 		textureFilenamesMap.put("SafeFieldStage4", "image/tableStage4.png");
 		textureFilenamesMap.put("SafeFieldStage5", "image/tableStage5.png");
-		textureFilenamesMap.put("ImageBackground", "image/backBig.png");
+		textureFilenamesMap.put("ImageBackground", "image/background3times.png");
 		textureFilenamesMap.put("Fire", "image/fire.png");
 		textureFilenamesMap.put("Winner", "image/winner.png");
 
