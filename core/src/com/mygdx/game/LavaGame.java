@@ -29,6 +29,9 @@ public class LavaGame extends Game {
     GameplayView gameplayView;
     WinnerView winnerView;
     LooserView looserView;
+    private int points = 5000;
+
+
 
     static public int width;
     static public int height;
@@ -61,6 +64,14 @@ public class LavaGame extends Game {
         font = new BitmapFont();
         setScreen(welcomeView);
 //        setScreen(gameplayView);
+    }
+
+    public void calculatePoints(){
+        points -= 150;
+    }
+
+    public void addBonusExit(){
+        points += 5000;
     }
 
     @Override
@@ -100,4 +111,9 @@ public class LavaGame extends Game {
         camera.zoom = 1;
         camera.update();
     }
+
+    public int getPoints() {
+        return points;
+    }
+
 }

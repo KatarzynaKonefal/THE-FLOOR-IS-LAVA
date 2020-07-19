@@ -18,7 +18,8 @@ public class WinnerView extends GameplayView {
 
     String winningText = " YES MY LORD\n" +
             "    YES YOU DID IT\n" +
-            "We hope you had as much fun as we did when writing this code!";
+            "We hope you had as much fun as we did when writing this code!\n"+
+            "POINT RESULT" +lavaGame.getPoints();
 
     public WinnerView(LavaGame lavaGame, IGameController controller, IModelManager modelManager) {
         super(lavaGame, controller, modelManager);
@@ -96,6 +97,8 @@ public class WinnerView extends GameplayView {
 
         Gdx.input.setInputProcessor(stage);
         stage.addActor(playAgainButton.getButton());
+
+
     }
 
 

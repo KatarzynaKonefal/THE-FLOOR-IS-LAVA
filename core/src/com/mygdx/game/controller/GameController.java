@@ -46,6 +46,7 @@ public class GameController implements IGameController {
 						modelManager.getPlayer().canJump = true;
 						modelManager.getPlayer().jumpVelocity = 0;
 						modelManager.getPlayer().y = field.y + field.height/2;
+						lavaGame.calculatePoints();
 					} else {
 						lavaGame.changeViewToLooser();
 						modelManager.getPlayer().isAlive = false;
@@ -58,12 +59,14 @@ public class GameController implements IGameController {
 				lavaGame.changeViewToWinnerView();
 				modelManager.getPlayer().isAlive = false;
 				lavaGame.changeCameraViewToUser();
+				lavaGame.addBonusExit();
 			}
 		}
 	}
 
 	private boolean isPlayerOnSafeField(SafeField s) {
 		return modelManager.getPlayer().jumpVelocity <= 0 && modelManager.getPlayer().overlaps(s) && !(modelManager.getPlayer().y <= s.y);
+
 
 	}
 

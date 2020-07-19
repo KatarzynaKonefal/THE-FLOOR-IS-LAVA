@@ -51,6 +51,7 @@ public class GameplayView extends ScreenAdapter {
         modelManager.getExitField().draw(lavaGame.batch);
 
         lavaGame.batch.end();
+
     }
 
     @Override
