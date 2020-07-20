@@ -1,5 +1,4 @@
 package com.mygdx.game.model;
-
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
@@ -8,6 +7,8 @@ import com.mygdx.game.LavaGame;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.mygdx.game.model.SafeField.timeToDestroy;
+
 public class ModelManager implements IModelManager {
     LavaGame lavaGame;
     private Assets assets;
@@ -15,9 +16,9 @@ public class ModelManager implements IModelManager {
     private LavaPlayer player;
     private List<SafeField> safeFields;
     private Exit exit;
-    private Points points;
 
-    private Music music;
+
+
 
 
 
@@ -40,6 +41,8 @@ public class ModelManager implements IModelManager {
     }
 
 
+
+
     @Override
     public Exit getExitField() {
         return exit;
@@ -59,12 +62,14 @@ public class ModelManager implements IModelManager {
     @Override
     public Winner getWinner() {
         return new Winner(assets.manager.get(assets.textureFilenamesMap.get("Winner"), Texture.class),
-                new Position(player.x, player.y));
+                new Position(player.x - 200, player.y - 200));
     }
 
+
+
     @Override
-    public Points getPoints() {
-        return points;
+    public int getPoints() {
+        return 0;
     }
 
 
@@ -73,7 +78,7 @@ public class ModelManager implements IModelManager {
 
         // music.play();
 
-        points = new Points(5000);
+;
         Texture background = getBackground();
         Position exitPosition = new Position(background.getWidth() - 2 * lavaGame.width / 3, background.getHeight() - lavaGame.height);
 
@@ -88,14 +93,17 @@ public class ModelManager implements IModelManager {
 
         String baseSafeFieldIdentifier = "SafeFieldStage";
         List<Texture> textures = new ArrayList<>();
-        for (int i = 1; i < 6; ++i) {
-            textures.add(assets.manager.get(assets.textureFilenamesMap.get(baseSafeFieldIdentifier + i),
+
+
+        for (int numberSafeFieldStage = 1; numberSafeFieldStage < 6; ++numberSafeFieldStage) {
+            textures.add(assets.manager.get(assets.textureFilenamesMap.get(baseSafeFieldIdentifier + numberSafeFieldStage),
                     Texture.class));
-            pointsAdd();
+
+
 
 
         }
-        SafeField.timeToDestroy = level.timeToDestroy;
+        timeToDestroy = level.timeToDestroy;
         SafeField.textures = textures;
 
         Position firstSafeFieldPosition = new Position(playerStartPosition.x,
@@ -105,18 +113,6 @@ public class ModelManager implements IModelManager {
 
         safeFields = fieldGenerator.generateFields(level.numberOfSafeFields, level.minimalDistanceBetweenFields);
     }
-    private void pointsAdd() {
-        points.calculatePoints();
-
-    }
-
-    public void addBonusExit() {
-        points.addBonusExit();
-    }
-
-//    @Override
-//    public Points getPoints(){
-//    }
 
 
 }

@@ -1,5 +1,4 @@
 package com.mygdx.game.controller;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.mygdx.game.LavaGame;
@@ -9,6 +8,7 @@ public class GameController implements IGameController {
 
 	LavaGame lavaGame;
 	IModelManager modelManager;
+
 
 	private float gravity = -20;
 
@@ -62,14 +62,12 @@ public class GameController implements IGameController {
 				//modelManager.addBonusExit();
 			}
 		}
+		//modelManager.getPoints();
 	}
 
 	private boolean isPlayerOnSafeField(SafeField s) {
 		return modelManager.getPlayer().jumpVelocity <= 0 && modelManager.getPlayer().overlaps(s) && !(modelManager.getPlayer().y <= s.y);
-
-
 	}
-
 	private boolean isPlayerOnExit(Exit exit) {
 		return modelManager.getPlayer().overlaps(exit);
 
@@ -97,12 +95,6 @@ public class GameController implements IGameController {
 			lavaGame.camera.zoom = 3;
 			lavaGame.cameraRepositionIsEnable = false;
 		}
-
-//		android
-//		if(Gdx.input.justTouched()) {
-//			player.jump();
-//		}
-//		camera.rotate(0.20f);
 
 	}
 

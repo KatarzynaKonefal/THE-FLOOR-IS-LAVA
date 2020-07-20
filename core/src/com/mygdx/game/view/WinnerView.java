@@ -1,5 +1,6 @@
 package com.mygdx.game.view;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -19,8 +20,8 @@ public class WinnerView extends GameplayView {
     String winningText = " YES MY LORD\n" +
             "    YES YOU DID IT\n" +
             "We hope you had as much fun as we did when writing this code!\n"+
-            "POINT RESULT"
-            +modelManager.getPoints();
+            "POINT RESULT: " +
+            modelManager.getPoints();
 
     public WinnerView(LavaGame lavaGame, IGameController controller, IModelManager modelManager) {
         super(lavaGame, controller, modelManager);
@@ -47,8 +48,8 @@ public class WinnerView extends GameplayView {
         modelManager.getWinner().draw(lavaGame.batch);
         labelFont.draw(lavaGame.batch,
                 winningText,
-                modelManager.getPlayer().x - modelManager.getPlayer().width,
-                modelManager.getPlayer().y +modelManager.getPlayer().height,
+                modelManager.getPlayer().x + modelManager.getPlayer().width + 50,
+                modelManager.getPlayer().y +modelManager.getPlayer().height + 50,
                 (int)(LavaGame.width / 4),
                 Align.center,
                 true);

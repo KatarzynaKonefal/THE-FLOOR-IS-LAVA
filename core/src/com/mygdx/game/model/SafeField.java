@@ -1,6 +1,6 @@
 package com.mygdx.game.model;
 import com.badlogic.gdx.graphics.Texture;
-import com.mygdx.game.LavaGame;
+
 
 import java.util.List;
 
@@ -9,9 +9,9 @@ public class SafeField extends GameObject {
 	public static List<Texture> textures;
 	public static double timeToDestroy;
 	float timeDifference;
-	int fieldStage;
-	LavaGame lavaGame;
-	
+	public int fieldStage;
+
+
 	public SafeField (Position position) {
 		super(textures.get(0), position);
 		timeDifference = 0;
@@ -29,9 +29,12 @@ public class SafeField extends GameObject {
 			updateTexture(textures.get(fieldStage));
 			if(fieldStage == 4) {
 				isGameContinue = false;
+
 			}
 
 		}
+
+
 		return isGameContinue;
 	}
 

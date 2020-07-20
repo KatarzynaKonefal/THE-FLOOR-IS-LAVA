@@ -1,6 +1,7 @@
 package com.mygdx.game.view;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -18,10 +19,8 @@ public class LooserView extends GameplayView {
 	BitmapFont labelFont = new BitmapFont();
 
 	String endingTxt = "Are you looser baby?\n" +
-			"\tTry again - button\n" +
-			"\tGet Out - button\n"+
-			 "POINT RESULT"
-		 +modelManager.getPoints();
+			 "POINT RESULT: "+
+			modelManager.getPoints();
 
 	public LooserView(LavaGame lavaGame, IGameController controller, IModelManager modelManager) {
 		super(lavaGame, controller, modelManager);
@@ -42,8 +41,8 @@ public class LooserView extends GameplayView {
 
 		labelFont.draw(lavaGame.batch,
 				endingTxt,
-				modelManager.getPlayer().x - modelManager.getPlayer().width,
-				modelManager.getPlayer().y +modelManager.getPlayer().height,
+				modelManager.getPlayer().x + modelManager.getPlayer().getWidth(),
+				modelManager.getPlayer().y + modelManager.getPlayer().getHeight(),
 				(int)(LavaGame.width / 4),
 				Align.center,
 				true);
@@ -64,14 +63,14 @@ public class LooserView extends GameplayView {
 	private void initButtons() {
 		GameButton exitButton = new GameButton("image/exit.png",
 				modelManager.getPlayer().x + modelManager.getPlayer().width,
-				modelManager.getPlayer().y + modelManager.getPlayer().height + 100,
+				modelManager.getPlayer().y + modelManager.getPlayer().height + 150,
 				300,
 				250);
 
 		exitButton.addListener(new ClickListener() {
 			@Override
 			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-				lavaGame.exit();
+				Gdx.app.exit();
 				return super.touchDown(event, x, y, pointer, button);
 			}
 		});

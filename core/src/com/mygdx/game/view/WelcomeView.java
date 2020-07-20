@@ -1,6 +1,8 @@
 package com.mygdx.game.view;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -10,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.mygdx.game.LavaGame;
+import com.mygdx.game.model.Assets;
 import com.mygdx.game.model.IModelManager;
 import com.mygdx.game.model.Level;
 
@@ -18,12 +21,15 @@ public class WelcomeView extends ScreenAdapter {
 
     LavaGame lavaGame;
     IModelManager modelManager;
+    private Assets assets;
 
     protected Stage stage;
-    private GameButton easyButton, hardButton;
+    private GameButton easyButton, hardButton, soundButton;
+
+    private Music music;
 
 
-    private Texture imageBackground, imageInstruction, startButton;
+    private Texture imageBackground, imageInstruction;
 
     public WelcomeView(LavaGame lavaGame, IModelManager modelManager) {
         this.lavaGame = lavaGame;
@@ -34,6 +40,8 @@ public class WelcomeView extends ScreenAdapter {
         imageBackground = new Texture("image/Hello.gif");
 
         imageInstruction = new Texture("image/wsad.jpg");
+
+
 
 
     }
@@ -52,18 +60,18 @@ public class WelcomeView extends ScreenAdapter {
 
         lavaGame.batch.draw(imageBackground,0, 0);
 
-
         lavaGame.batch.draw(imageInstruction,1450,  50);
 
 
         lavaGame.batch.setProjectionMatrix(lavaGame.camera.combined);
 
-        labelFont.draw(lavaGame.batch, welcomeTxt, 1350, 600, (int)(LavaGame.width / 4), Align.center, true);
+        labelFont.draw(lavaGame.batch, welcomeTxt, 1350, 750, (int)(LavaGame.width / 4), Align.center, true);
         lavaGame.batch.end();
 
         lavaGame.batch.begin();
         stage.draw();
         lavaGame.batch.end();
+
     }
 
     @Override
@@ -71,7 +79,7 @@ public class WelcomeView extends ScreenAdapter {
         Gdx.input.setInputProcessor(null);
     }
     private void initButtons() {
-        easyButton = new GameButton("image/easy.png", 1400, 500, 400, 400);
+        easyButton = new GameButton("image/easy.png", 1220, 700, 400, 400);
         easyButton.addListener(new ClickListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -88,7 +96,7 @@ public class WelcomeView extends ScreenAdapter {
 
 
 
-        hardButton = new GameButton("image/Hard.png", 1350, 800, 400, 400);
+        hardButton = new GameButton("image/Hard.png", 1550, 700, 400, 400);
         hardButton.addListener(new ClickListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -102,6 +110,20 @@ public class WelcomeView extends ScreenAdapter {
         Gdx.input.setInputProcessor(stage);
         stage.addActor(hardButton.getButton());
 
+
+        soundButton = new GameButton("image/sound.png", 1500, 300, 200, 200);
+        soundButton.addListener(new ClickListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+
+                return super.touchDown(event, x, y, pointer, button);
+            }
+        });
+
+        Gdx.input.setInputProcessor(stage);
+        stage.addActor(soundButton.getButton());
+
+
     }
 
 
@@ -112,9 +134,9 @@ public class WelcomeView extends ScreenAdapter {
             " Team Prymuski\r\n\n" +
             " Kasia&Beata\r\n" +
             " presents\r\n\n"  +
-            " FLOOR IS LAVA\r\n\n"
-            + "Year 2020 it wasn't good for humanity but is not the end of the catastrophs.\r\n"
-            + "It is the begging of end.\r\n"
-            + "The most dangerous and the biggest vulcano of the mother earth show in the end of july its anger.\r\n"
-            + "The only hope is jump and run because THE FLOOR IS LAVA!";
+            " THE FLOOR IS LAVA\r\n\n"
+            + "Year 2020 wasn't good for the humanity but it’s not the end of the catastrophes yet\r\n"
+            + "It’s the begging of the end\r\n"
+            + "Mother Earth’s deadliest volcano unleashed its anger\r\n"
+            + "The only hope is to jump and run because THE FLOOR IS LAVA";
 }

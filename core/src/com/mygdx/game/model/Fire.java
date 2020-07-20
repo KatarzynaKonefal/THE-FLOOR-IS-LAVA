@@ -1,7 +1,5 @@
 package com.mygdx.game.model;
-
 import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 
 public class Fire extends GameObject {

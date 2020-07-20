@@ -3,7 +3,9 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -29,6 +31,7 @@ public class LavaGame extends Game {
     GameplayView gameplayView;
     WinnerView winnerView;
     LooserView looserView;
+    Assets assets;
 
 
 
@@ -63,6 +66,8 @@ public class LavaGame extends Game {
         shapeRenderer = new ShapeRenderer();
         font = new BitmapFont();
         setScreen(welcomeView);
+
+
     }
 
     @Override

@@ -15,9 +15,6 @@ public class Assets {
 	public Map<String, String> musicFilenamesMap;
 	public Map<String, String> soundFilenamesMap;
 
-	public String musicFilename;
-	public String soundFilename;
-
 	public Assets() {
 		manager = new AssetManager();
 		textureFilenamesMap = new HashMap<>();
@@ -32,8 +29,7 @@ public class Assets {
 		textureFilenamesMap.put("ImageBackground", "image/background3times.png");
 		textureFilenamesMap.put("Fire", "image/fire.png");
 		textureFilenamesMap.put("Winner", "image/winner.png");
-
-
+		textureFilenamesMap.put("Sound", "image/sound.png");
 
 		musicFilenamesMap = new HashMap<>();
 		musicFilenamesMap.put("Basic", "sound/basic.mp3");
