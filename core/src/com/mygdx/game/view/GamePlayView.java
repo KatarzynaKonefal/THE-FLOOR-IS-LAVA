@@ -1,5 +1,7 @@
 package com.mygdx.game.view;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
@@ -51,7 +53,6 @@ public class GameplayView extends ScreenAdapter {
         modelManager.getExitField().draw(lavaGame.batch);
 
         lavaGame.batch.end();
-
 
     }
 

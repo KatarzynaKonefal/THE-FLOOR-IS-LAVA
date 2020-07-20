@@ -9,7 +9,7 @@ public class Fire extends GameObject {
 	public Fire (Texture texture, Position position, Music musicFire) {
 		super(texture, position);
 		music = musicFire;
-		musicFire.play();
+		//musicFire.play();
 	}
 
 

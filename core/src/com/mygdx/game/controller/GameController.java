@@ -3,6 +3,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.mygdx.game.LavaGame;
 import com.mygdx.game.model.*;
+import com.mygdx.game.view.GameplayView;
 
 public class GameController implements IGameController {
 
@@ -95,6 +96,8 @@ public class GameController implements IGameController {
 			lavaGame.camera.zoom = 3;
 			lavaGame.cameraRepositionIsEnable = false;
 		}
+
+
 
 	}
 

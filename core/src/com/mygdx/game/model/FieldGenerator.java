@@ -30,8 +30,6 @@ public class FieldGenerator {
             Position position = new Position(firstFieldPosition.x + i * 600, firstFieldPosition.y);
             fields.add(new SafeField(position));
         }
-
-
         long currentTime = System.currentTimeMillis();
         Random generator = new Random(currentTime);
         int x,y;

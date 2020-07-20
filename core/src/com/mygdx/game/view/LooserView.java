@@ -18,9 +18,9 @@ public class LooserView extends GameplayView {
 
 	BitmapFont labelFont = new BitmapFont();
 
-	String endingTxt = "Are you looser baby?\n" +
-			 "POINT RESULT: "+
-			modelManager.getPoints();
+	String endingTxt = "Are you looser baby?\n";
+//			 "POINT RESULT: "+
+//			modelManager.getPoints();
 
 	public LooserView(LavaGame lavaGame, IGameController controller, IModelManager modelManager) {
 		super(lavaGame, controller, modelManager);
