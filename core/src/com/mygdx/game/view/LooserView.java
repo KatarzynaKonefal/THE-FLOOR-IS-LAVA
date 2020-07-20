@@ -20,7 +20,8 @@ public class LooserView extends GameplayView {
 	String endingTxt = "Are you looser baby?\n" +
 			"\tTry again - button\n" +
 			"\tGet Out - button\n"+
-			 "POINT RESULT" +lavaGame.getPoints();;
+			 "POINT RESULT"
+		 +modelManager.getPoints();
 
 	public LooserView(LavaGame lavaGame, IGameController controller, IModelManager modelManager) {
 		super(lavaGame, controller, modelManager);

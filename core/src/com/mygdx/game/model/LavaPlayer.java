@@ -3,8 +3,10 @@ package com.mygdx.game.model;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
+import com.mygdx.game.LavaGame;
 
 public class LavaPlayer extends GameObject {
+
 	
 	private Sound sound;
 	public boolean canJump = true;
@@ -30,6 +32,7 @@ public class LavaPlayer extends GameObject {
 			jumpVelocity += 800;
 			canJump = false;
 			sound.play();
+
 		}
 	}
 
