@@ -25,11 +25,9 @@ A - left
 D - right
 Z - zoomOut
 
-## We hope you will have as much fun as we did when writing this code!
+### We hope you will have as much fun as we did when writing this code!
 # Enjoy!
 
-
-Try this markdown:
 
 ![alt text](https://cdn.lowgif.com/full/4703ecf3de8a6b7c-.gif)
  
