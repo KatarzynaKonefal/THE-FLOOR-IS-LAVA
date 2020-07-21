@@ -25,9 +25,8 @@ A - left
 D - right
 Z - zoomOut
 
-
-####We hope you will have as much fun as we did when writing this code!
-##Enjoy!
+## We hope you will have as much fun as we did when writing this code!
+# Enjoy!
 
 
 Try this markdown:
