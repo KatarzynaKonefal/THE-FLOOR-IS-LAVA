@@ -11,5 +11,6 @@ public class DesktopLauncher {
 		config.resizable = false;
 		new LwjglApplication(new LavaGame(config.width, config.height), config);
 
+		System.getProperty("java.version");
 	}
 }

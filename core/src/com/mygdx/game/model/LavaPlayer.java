@@ -1,13 +1,13 @@
 package com.mygdx.game.model;
-
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
-import com.mygdx.game.LavaGame;
+
 
 public class LavaPlayer extends GameObject {
 
-	
+	private Music music;
 	private Sound sound;
 	public boolean canJump = true;
 	
@@ -20,9 +20,9 @@ public class LavaPlayer extends GameObject {
 	private double rightSideCoefficient = 0.60;
 	private double leftSideCoefficient = 0.30;
 	
-	public LavaPlayer(Texture imagePlayer, Sound jumpSound, Position startPosition) {
+	public LavaPlayer(Texture imagePlayer, Music musicSound, Position startPosition) {
 		super(imagePlayer, startPosition);
-		sound = jumpSound;
+		music = musicSound;
 		verticalStartPosition = startPosition.y;
 		isAlive = true;
 	}
@@ -31,7 +31,7 @@ public class LavaPlayer extends GameObject {
 		if(canJump && jumpVelocity >= -100 ) {
 			jumpVelocity += 800;
 			canJump = false;
-			sound.play();
+			music.play();
 
 		}
 	}

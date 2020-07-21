@@ -20,13 +20,14 @@ public class GameController implements IGameController {
 
 		this.lavaGame = lavaGame;
 		this.modelManager = modelManager;
-		deadPosition = -5*lavaGame.height/12;
+		deadPosition = -5 * lavaGame.height / 12;
 	}
 
 	@Override
 	public void update() {
-		if(modelManager.getPlayer().isAlive) {
+		if (modelManager.getPlayer().isAlive) {
 			handleInput();
+
 
 			float timeDifference = Gdx.graphics.getDeltaTime();
 
@@ -43,10 +44,10 @@ public class GameController implements IGameController {
 			for (SafeField field : modelManager.getSafeFields()) {
 				if (isPlayerOnSafeField(field)) {
 					boolean isGameContinue = field.updateAvailability(timeDifference);
-					if(isGameContinue) {
+					if (isGameContinue) {
 						modelManager.getPlayer().canJump = true;
 						modelManager.getPlayer().jumpVelocity = 0;
-						modelManager.getPlayer().y = field.y + field.height/2;
+						modelManager.getPlayer().y = field.y + field.height / 2;
 
 					} else {
 						lavaGame.changeViewToLooser();
@@ -69,11 +70,12 @@ public class GameController implements IGameController {
 	private boolean isPlayerOnSafeField(SafeField s) {
 		return modelManager.getPlayer().jumpVelocity <= 0 && modelManager.getPlayer().overlaps(s) && !(modelManager.getPlayer().y <= s.y);
 	}
+
 	private boolean isPlayerOnExit(Exit exit) {
 		return modelManager.getPlayer().overlaps(exit);
 
 	}
-	
+
 	private void handleInput() {
 
 		if (Gdx.input.isKeyPressed(Keys.A)) {
@@ -90,6 +92,8 @@ public class GameController implements IGameController {
 
 		}
 		lavaGame.cameraRepositionIsEnable = true;
+
+
 		if (Gdx.input.isKeyPressed(Keys.Z)) {
 			lavaGame.camera.position.set(lavaGame.width,
 					lavaGame.height, 0);
@@ -101,4 +105,16 @@ public class GameController implements IGameController {
 
 	}
 
+	private void pauseGame(){
+		if (Gdx.input.isKeyPressed(Keys.P)) {
+			modelManager.getPlayer().isAlive = false;
+
+			if (Gdx.input.isKeyPressed(Keys.P)) {
+				modelManager.getPlayer().isAlive = true;
+
+			}
+
+
+		}
+	}
 }

@@ -32,11 +32,15 @@ public class Assets {
 		textureFilenamesMap.put("Sound", "image/sound.png");
 
 		musicFilenamesMap = new HashMap<>();
-		musicFilenamesMap.put("Basic", "sound/basic.mp3");
+		musicFilenamesMap.put("EasySound", "sound/basic2.mp3");
+		musicFilenamesMap.put("MenuSound", "sound/nicebasic.mp3");
+		musicFilenamesMap.put("HardSound", "sound/basic.mp3");
 		musicFilenamesMap.put("Looser","sound/sreaming.mp3");
+		musicFilenamesMap.put("Jump", "sound/jump.wav");
 
-		soundFilenamesMap = new HashMap<>();
-		soundFilenamesMap.put("Jump", "sound/jump.wav");
+
+
+
 
 
 	}
@@ -51,9 +55,9 @@ public class Assets {
 		}
 
 
-		for(Map.Entry<String,String > entry: soundFilenamesMap.entrySet()){
-			manager.load(entry.getValue(), Sound.class);
-		}
+//		for(Map.Entry<String,String > entry: soundFilenamesMap.entrySet()){
+//			manager.load(entry.getValue(), Sound.class);
+//		}
 
 	}
 }

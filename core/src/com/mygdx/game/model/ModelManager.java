@@ -87,7 +87,7 @@ public class ModelManager implements IModelManager {
         Position playerStartPosition = new Position(-lavaGame.width / 3, -lavaGame.height / 3);
 
         player = new LavaPlayer(assets.manager.get(assets.textureFilenamesMap.get(level.playerImageFilename), Texture.class),
-                assets.manager.get(assets.soundFilenamesMap.get("Jump"), Sound.class),
+                assets.manager.get(assets.musicFilenamesMap.get("Jump"), Music.class),
                 playerStartPosition);
 
 
