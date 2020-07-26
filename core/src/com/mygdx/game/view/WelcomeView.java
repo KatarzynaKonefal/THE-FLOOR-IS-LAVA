@@ -23,13 +23,16 @@ public class WelcomeView extends ScreenAdapter {
     IModelManager modelManager;
     private Assets assets;
 
+    BitmapFont labelFont = new BitmapFont();
+
     protected Stage stage;
     private GameButton easyButton, hardButton, soundButton;
 
     private Music music;
 
+    private String high = " ";
 
-    private Texture imageBackground, imageInstruction;
+    private Texture imageBackground, imageInstruction, imageBest;
 
     public WelcomeView(LavaGame lavaGame, IModelManager modelManager) {
         this.lavaGame = lavaGame;
@@ -40,6 +43,8 @@ public class WelcomeView extends ScreenAdapter {
         imageBackground = new Texture("image/Hello.gif");
 
         imageInstruction = new Texture("image/wsad.jpg");
+
+        imageBest = new Texture("image/best.png");
 
     }
 
@@ -57,8 +62,13 @@ public class WelcomeView extends ScreenAdapter {
 
         lavaGame.batch.draw(imageBackground,0, 0);
 
-        lavaGame.batch.draw(imageInstruction,1450,  50);
+        lavaGame.batch.draw(imageInstruction,1650,  70);
+        lavaGame.batch.draw(imageBest, 1300, 300);
 
+        labelFont.draw(lavaGame.batch,
+                lavaGame.generateScoreTable(high), 1200, 250, (int)(LavaGame.width / 4),
+                Align.center,
+                true);
 
         lavaGame.batch.setProjectionMatrix(lavaGame.camera.combined);
 
@@ -126,9 +136,9 @@ public class WelcomeView extends ScreenAdapter {
 
         Gdx.input.setInputProcessor(stage);
         stage.addActor(soundButton.getButton());
+
     }
 
-    BitmapFont labelFont = new BitmapFont();
 
     String welcomeTxt = "Welcome \r\n\n " +
             " Team Prymuski\r\n\n" +
@@ -139,4 +149,6 @@ public class WelcomeView extends ScreenAdapter {
             + "It’s the begging of the end\r\n"
             + "Mother Earth’s deadliest volcano unleashed its anger\r\n"
             + "The only hope is to jump and run because THE FLOOR IS LAVA";
+
+
 }
