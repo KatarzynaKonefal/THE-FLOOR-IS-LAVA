@@ -1,9 +1,8 @@
 package com.mygdx.game.model;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.graphics.Texture;
+import java.util.List;
 
-        import com.badlogic.gdx.audio.Music;
-        import com.badlogic.gdx.graphics.Texture;
-        import java.util.List;
-        import java.util.TreeSet;
 
 public interface IModelManager {
 

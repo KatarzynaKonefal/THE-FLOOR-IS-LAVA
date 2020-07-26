@@ -2,7 +2,6 @@ package com.mygdx.game.view;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -28,7 +27,6 @@ public class WelcomeView extends ScreenAdapter {
     protected Stage stage;
     private GameButton easyButton, hardButton, soundButton;
 
-    private Music music;
 
     private String high = " ";
 
@@ -66,7 +64,7 @@ public class WelcomeView extends ScreenAdapter {
         lavaGame.batch.draw(imageBest, 1300, 300);
 
         labelFont.draw(lavaGame.batch,
-                lavaGame.generateScoreTable(high), 1200, 250, (int)(LavaGame.width / 4),
+                lavaGame.generateScoreTable(high), 1170, 250, (int)(LavaGame.width / 4),
                 Align.center,
                 true);
 

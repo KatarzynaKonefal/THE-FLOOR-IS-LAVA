@@ -1,18 +1,8 @@
 package com.mygdx.game.model;
-
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+
 
 public class Points implements Comparable <Points>, Serializable {
-
-
-  //przekazanmie przez model do looser/winner view i print
-    //nowe okno po rozgrywce?
-
-// List<Points> highScore = new ArrayList<Points>();
-
-
     private Integer points;
     private String playerName;
 
@@ -38,12 +28,12 @@ public class Points implements Comparable <Points>, Serializable {
         points -= 1;
     }
 
-    public int getPoints() {
-        return points;
-    }
+//    public int getPoints() {
+//        return points;
+//    }
 
     @Override
     public String toString() {
-        return this.playerName + ":            " + points;
+        return this.playerName + ":       " + points;
     }
 }

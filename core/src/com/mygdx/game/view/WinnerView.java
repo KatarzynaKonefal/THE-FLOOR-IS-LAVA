@@ -1,11 +1,8 @@
 package com.mygdx.game.view;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
@@ -21,8 +18,8 @@ public class WinnerView extends GameplayView {
 
 
     String winningText = " YES MY LORD\n" +
-            "    YES YOU DID IT\n" +
-            "We hope you had as much fun as we did when writing this code!\n"+
+            "     YES YOU DID IT\n" +
+            "We hope you had as much fun as we did when writing this code!\n\n"+
             "The best point results are:\n";
 
 

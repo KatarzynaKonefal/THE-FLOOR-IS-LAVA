@@ -1,24 +1,14 @@
 package com.mygdx.game.view;
-
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.mygdx.game.LavaGame;
 import com.mygdx.game.controller.IGameController;
 import com.mygdx.game.model.IModelManager;
-import com.mygdx.game.model.Points;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 public class LooserView extends GameplayView {
 
@@ -26,7 +16,7 @@ public class LooserView extends GameplayView {
 
 	BitmapFont labelFont = new BitmapFont();
 
-	String endingTxt = "Are you looser baby?\n"
+	String endingTxt = "Are you looser baby?\n\n"
 			  + "The best point results are:\n";
 
 	public LooserView(LavaGame lavaGame, IGameController controller, IModelManager modelManager) {
