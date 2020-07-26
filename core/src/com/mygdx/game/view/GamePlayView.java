@@ -54,6 +54,8 @@ public class GameplayView extends ScreenAdapter {
 
         lavaGame.batch.end();
 
+
+
     }
 
     @Override

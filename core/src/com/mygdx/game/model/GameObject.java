@@ -23,4 +23,6 @@ public abstract class GameObject extends Rectangle {
     public void updateTexture(Texture texture) {
         this.texture = texture;
     }
+
+
 }

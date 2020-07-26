@@ -115,6 +115,10 @@ public class WelcomeView extends ScreenAdapter {
         soundButton.addListener(new ClickListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                modelManager.getPlayer().turnOffMusic();
+                modelManager.getFire().turnOffMusic();
+                //musicoff
+                //wyrzuca nullPointer
 
                 return super.touchDown(event, x, y, pointer, button);
             }

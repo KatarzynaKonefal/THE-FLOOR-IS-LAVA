@@ -13,7 +13,7 @@ public class Assets {
 	public AssetManager manager;
 	public Map<String,String> textureFilenamesMap;
 	public Map<String, String> musicFilenamesMap;
-	public Map<String, String> soundFilenamesMap;
+	//public Map<String, String> soundFilenamesMap;
 
 	public Assets() {
 		manager = new AssetManager();

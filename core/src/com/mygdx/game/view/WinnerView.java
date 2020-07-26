@@ -17,6 +17,9 @@ public class WinnerView extends GameplayView {
 
     BitmapFont labelFont = new BitmapFont();
 
+    String highScore;
+    //przekazanie najlepszych wartosci
+
     String winningText = " YES MY LORD\n" +
             "    YES YOU DID IT\n" +
             "We hope you had as much fun as we did when writing this code!\n"+

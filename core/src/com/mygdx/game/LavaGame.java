@@ -51,6 +51,7 @@ public class LavaGame extends Game {
     @Override
     public void create() {
         camera = new OrthographicCamera(width, height);
+        //camera.translate(width/2,height/2);
         camera.zoom = 1;
         cameraRepositionIsEnable = true;
 
@@ -107,5 +108,10 @@ public class LavaGame extends Game {
         camera.zoom = 1;
         camera.update();
     }
+
+
+    public void pause(){}
+
+    public void resume(){}
 
 }

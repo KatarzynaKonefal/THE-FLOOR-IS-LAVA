@@ -20,10 +20,11 @@ THE FLOOR IS LAVA
  
  You have to choose your skills level and press the buttom EASY or HARD on the game view. 
  
-W - jump
-A - left
-D - right
-Z - zoomOut
+W - jump, 
+A - left, 
+D - right, 
+Z - zoomOut, 
+P - pause
 
 ### We hope you will have as much fun as we did when writing this code!
 # Enjoy!

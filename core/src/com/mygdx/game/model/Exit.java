@@ -7,6 +7,9 @@ import com.mygdx.game.model.Assets;
 
 public class Exit extends GameObject {
 
+
+	//dodac dzwiek
+
 	private Texture imageField;
 
 	public Exit(Texture imageField, Position position) {

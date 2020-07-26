@@ -25,9 +25,10 @@ public class GameController implements IGameController {
 
 	@Override
 	public void update() {
+		pauseGame();
+
 		if (modelManager.getPlayer().isAlive) {
 			handleInput();
-
 
 			float timeDifference = Gdx.graphics.getDeltaTime();
 
@@ -105,15 +106,12 @@ public class GameController implements IGameController {
 
 	}
 
-	private void pauseGame(){
-		if (Gdx.input.isKeyPressed(Keys.P)) {
+	public void pauseGame(){
+		if (Gdx.input.isKeyJustPressed(Keys.P) && modelManager.getPlayer().isAlive) {
 			modelManager.getPlayer().isAlive = false;
 
-			if (Gdx.input.isKeyPressed(Keys.P)) {
-				modelManager.getPlayer().isAlive = true;
-
-			}
-
+		} else if (Gdx.input.isKeyPressed(Keys.O) && !modelManager.getPlayer().isAlive) {
+			modelManager.getPlayer().isAlive = true;
 
 		}
 	}
