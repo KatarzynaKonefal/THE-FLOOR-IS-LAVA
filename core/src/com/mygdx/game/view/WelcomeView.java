@@ -41,9 +41,6 @@ public class WelcomeView extends ScreenAdapter {
 
         imageInstruction = new Texture("image/wsad.jpg");
 
-
-
-
     }
 
     @Override
@@ -115,10 +112,13 @@ public class WelcomeView extends ScreenAdapter {
         soundButton.addListener(new ClickListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                modelManager.getPlayer().turnOffMusic();
-                modelManager.getFire().turnOffMusic();
-                //musicoff
-                //wyrzuca nullPointer
+                if (lavaGame.soundIsOn) {
+                    lavaGame.soundIsOn = false;
+                    lavaGame.gameMusic.stop();
+                } else {
+                    lavaGame.soundIsOn = true;
+                    lavaGame.gameMusic.play();
+                }
 
                 return super.touchDown(event, x, y, pointer, button);
             }
@@ -126,11 +126,7 @@ public class WelcomeView extends ScreenAdapter {
 
         Gdx.input.setInputProcessor(stage);
         stage.addActor(soundButton.getButton());
-
-
     }
-
-
 
     BitmapFont labelFont = new BitmapFont();
 

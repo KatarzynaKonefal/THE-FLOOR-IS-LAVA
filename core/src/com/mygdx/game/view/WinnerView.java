@@ -1,9 +1,11 @@
 package com.mygdx.game.view;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
@@ -17,14 +19,12 @@ public class WinnerView extends GameplayView {
 
     BitmapFont labelFont = new BitmapFont();
 
-    String highScore;
-    //przekazanie najlepszych wartosci
 
     String winningText = " YES MY LORD\n" +
             "    YES YOU DID IT\n" +
             "We hope you had as much fun as we did when writing this code!\n"+
-            "POINT RESULT: " +
-            modelManager.getPoints();
+            "The best point results are:\n";
+
 
     public WinnerView(LavaGame lavaGame, IGameController controller, IModelManager modelManager) {
         super(lavaGame, controller, modelManager);
@@ -34,6 +34,9 @@ public class WinnerView extends GameplayView {
     @Override
     public void show() {
         initButtons();
+
+        PlayerNameInputListener listener = new PlayerNameInputListener(modelManager);
+        Gdx.input.getTextInput(listener, "Player name", "", "type your name");
     }
 
     @Override
@@ -50,7 +53,7 @@ public class WinnerView extends GameplayView {
         lavaGame.batch.begin();
         modelManager.getWinner().draw(lavaGame.batch);
         labelFont.draw(lavaGame.batch,
-                winningText,
+                lavaGame.generateScoreTable(winningText),
                 modelManager.getPlayer().x + modelManager.getPlayer().width + 50,
                 modelManager.getPlayer().y +modelManager.getPlayer().height + 50,
                 (int)(LavaGame.width / 4),

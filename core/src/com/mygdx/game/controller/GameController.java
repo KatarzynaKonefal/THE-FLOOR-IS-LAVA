@@ -44,7 +44,7 @@ public class GameController implements IGameController {
 
 			for (SafeField field : modelManager.getSafeFields()) {
 				if (isPlayerOnSafeField(field)) {
-					boolean isGameContinue = field.updateAvailability(timeDifference);
+					boolean isGameContinue = field.updateAvailability(timeDifference, modelManager.getPoints());
 					if (isGameContinue) {
 						modelManager.getPlayer().canJump = true;
 						modelManager.getPlayer().jumpVelocity = 0;
@@ -59,6 +59,7 @@ public class GameController implements IGameController {
 			}
 
 			if (isPlayerOnExit(modelManager.getExitField())) {
+				modelManager.getPoints().addBonusExit();
 				lavaGame.changeViewToWinnerView();
 				modelManager.getPlayer().isAlive = false;
 				lavaGame.changeCameraViewToUser();

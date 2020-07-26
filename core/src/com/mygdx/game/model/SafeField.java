@@ -18,18 +18,18 @@ public class SafeField extends GameObject {
 		fieldStage = 0;
 	}
 
-	public boolean updateAvailability(float timeDifference) {
+	public boolean updateAvailability(float timeDifference, Points points) {
 		boolean isGameContinue = true;
 
 		this.timeDifference += timeDifference;
 		if(this.timeDifference > timeToDestroy) {
 			this.timeDifference -= timeToDestroy;
 			++fieldStage;
+			points.removePoint();
 
 			updateTexture(textures.get(fieldStage));
 			if(fieldStage == 4) {
 				isGameContinue = false;
-
 			}
 
 		}

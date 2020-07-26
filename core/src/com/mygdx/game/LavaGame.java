@@ -17,6 +17,10 @@ import com.mygdx.game.view.LooserView;
 import com.mygdx.game.view.WelcomeView;
 import com.mygdx.game.view.WinnerView;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 public class LavaGame extends Game {
 
     public SpriteBatch batch;
@@ -31,10 +35,6 @@ public class LavaGame extends Game {
     GameplayView gameplayView;
     WinnerView winnerView;
     LooserView looserView;
-    Assets assets;
-
-
-
 
     static public int width;
     static public int height;
@@ -42,6 +42,11 @@ public class LavaGame extends Game {
     public Level level;
 
     public boolean cameraRepositionIsEnable;
+
+    public boolean soundIsOn;
+
+    public Music gameMusic;
+
 
     public LavaGame(int width, int height) {
         this.width = width;
@@ -66,9 +71,11 @@ public class LavaGame extends Game {
         batch = new SpriteBatch();
         shapeRenderer = new ShapeRenderer();
         font = new BitmapFont();
+        soundIsOn = true;
+
+        gameMusic = modelManager.getGameMusic();
+        gameMusic.play();
         setScreen(welcomeView);
-
-
     }
 
     @Override
@@ -107,6 +114,19 @@ public class LavaGame extends Game {
                 modelManager.getPlayer().y + height/3, 0);
         camera.zoom = 1;
         camera.update();
+    }
+
+    public String generateScoreTable(String endingInitialText) {
+        StringBuilder scoreTable = new StringBuilder(endingInitialText);
+        List<Points> rangList = new ArrayList<>(modelManager.getHighScore());
+        Collections.reverse(rangList);
+
+        for (Points highScore: rangList) {
+            scoreTable.append(highScore);
+            scoreTable.append("\n");
+        }
+
+        return scoreTable.toString();
     }
 
 

@@ -38,11 +38,6 @@ public class Assets {
 		musicFilenamesMap.put("Looser","sound/sreaming.mp3");
 		musicFilenamesMap.put("Jump", "sound/jump.wav");
 
-
-
-
-
-
 	}
 
 	public void load () {

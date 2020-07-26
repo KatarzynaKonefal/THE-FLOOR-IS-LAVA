@@ -17,7 +17,7 @@ public class LavaPlayer extends GameObject {
 
 	private double rightSideCoefficient = 0.60;
 	private double leftSideCoefficient = 0.30;
-	
+
 	public LavaPlayer(Texture imagePlayer, Music musicSound, Position startPosition) {
 		super(imagePlayer, startPosition);
 		music = musicSound;
@@ -25,31 +25,25 @@ public class LavaPlayer extends GameObject {
 		isAlive = true;
 	}
 
-
-	private boolean musicPlay = true;
+	public LavaPlayer(Texture imagePlayer, Position startPosition) {
+		super(imagePlayer, startPosition);
+		verticalStartPosition = startPosition.y;
+		isAlive = true;
+	}
 
 	public void jump() {
 		if(canJump && jumpVelocity >= -100 ) {
 			jumpVelocity += 800;
 			canJump = false;
-			if (musicPlay = true) {
+			if (music != null) {
 				music.play();
 			}
-
-
 		}
 	}
 
 	@Override
 	public boolean overlaps(Rectangle r) {
 		return x + leftSideCoefficient * width < r.x + r.width && x + width - rightSideCoefficient * width > r.x && y < r.y + r.height/2 && y + height > r.y;
-	}
-
-	public void turnOffMusic(){
-		musicPlay = false;
-//		if(musicPlay = false) {
-//			music.pause();
-//		}
 	}
 
 

@@ -6,6 +6,7 @@ import com.mygdx.game.LavaGame;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TreeSet;
 
 import static com.mygdx.game.model.SafeField.timeToDestroy;
 
@@ -17,9 +18,9 @@ public class ModelManager implements IModelManager {
     private List<SafeField> safeFields;
     private Exit exit;
 
+    private Points points;
 
-
-
+    HighScore highScore;
 
 
     public ModelManager(LavaGame lavaGame) {
@@ -28,6 +29,8 @@ public class ModelManager implements IModelManager {
         assets = new Assets();
         assets.load();
         assets.manager.finishLoading();
+
+        highScore = new HighScore();
     }
 
     @Override
@@ -39,9 +42,6 @@ public class ModelManager implements IModelManager {
     public List<SafeField> getSafeFields() {
         return safeFields;
     }
-
-
-
 
     @Override
     public Exit getExitField() {
@@ -55,8 +55,13 @@ public class ModelManager implements IModelManager {
 
     @Override
     public Fire getFire() {
-        return new Fire(assets.manager.get(assets.textureFilenamesMap.get("Fire"), Texture.class),
-                new Position(player.x, player.y), assets.manager.get(assets.musicFilenamesMap.get("Looser"), Music.class));
+        if(lavaGame.soundIsOn) {
+            return new Fire(assets.manager.get(assets.textureFilenamesMap.get("Fire"), Texture.class),
+                    new Position(player.x, player.y), assets.manager.get(assets.musicFilenamesMap.get("Looser"), Music.class));
+        } else {
+            return new Fire(assets.manager.get(assets.textureFilenamesMap.get("Fire"), Texture.class),
+                    new Position(player.x, player.y));
+        }
     }
 
     @Override
@@ -68,17 +73,14 @@ public class ModelManager implements IModelManager {
 
 
     @Override
-    public int getPoints() {
-        return 0;
+    public Points getPoints() {
+        return points;
     }
 
 
     @Override
     public void init(Level level) {
 
-        // music.play();
-
-;
         Texture background = getBackground();
         Position exitPosition = new Position(background.getWidth() - 2 * lavaGame.width / 3, background.getHeight() - lavaGame.height);
 
@@ -86,10 +88,16 @@ public class ModelManager implements IModelManager {
 
         Position playerStartPosition = new Position(-lavaGame.width / 3, -lavaGame.height / 3);
 
-        player = new LavaPlayer(assets.manager.get(assets.textureFilenamesMap.get(level.playerImageFilename), Texture.class),
-                assets.manager.get(assets.musicFilenamesMap.get("Jump"), Music.class),
-                playerStartPosition);
+        if(lavaGame.soundIsOn) {
+            player = new LavaPlayer(assets.manager.get(assets.textureFilenamesMap.get(level.playerImageFilename), Texture.class),
+                    assets.manager.get(assets.musicFilenamesMap.get("Jump"), Music.class),
+                    playerStartPosition);
+        } else {
+            player = new LavaPlayer(assets.manager.get(assets.textureFilenamesMap.get(level.playerImageFilename), Texture.class),
+                    playerStartPosition);
+        }
 
+        points = new Points();
 
         String baseSafeFieldIdentifier = "SafeFieldStage";
         List<Texture> textures = new ArrayList<>();
@@ -98,10 +106,6 @@ public class ModelManager implements IModelManager {
         for (int numberSafeFieldStage = 1; numberSafeFieldStage < 6; ++numberSafeFieldStage) {
             textures.add(assets.manager.get(assets.textureFilenamesMap.get(baseSafeFieldIdentifier + numberSafeFieldStage),
                     Texture.class));
-
-
-
-
         }
         timeToDestroy = level.timeToDestroy;
         SafeField.textures = textures;
@@ -114,6 +118,19 @@ public class ModelManager implements IModelManager {
         safeFields = fieldGenerator.generateFields(level.numberOfSafeFields, level.minimalDistanceBetweenFields);
     }
 
+    @Override
+    public Music getGameMusic() {
+        return assets.manager.get(assets.musicFilenamesMap.get("EasySound"), Music.class);
+    }
 
+    @Override
+    public void addNewScore() {
+        highScore.addNewScore(points);
+    }
+
+    @Override
+    public List<Points> getHighScore() {
+        return highScore.bestPlayers;
+    }
 }
 

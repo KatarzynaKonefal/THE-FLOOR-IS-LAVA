@@ -1,16 +1,24 @@
 package com.mygdx.game.view;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.mygdx.game.LavaGame;
 import com.mygdx.game.controller.IGameController;
 import com.mygdx.game.model.IModelManager;
+import com.mygdx.game.model.Points;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class LooserView extends GameplayView {
 
@@ -18,9 +26,8 @@ public class LooserView extends GameplayView {
 
 	BitmapFont labelFont = new BitmapFont();
 
-	String endingTxt = "Are you looser baby?\n";
-//			 "POINT RESULT: "+
-//			modelManager.getPoints();
+	String endingTxt = "Are you looser baby?\n"
+			  + "The best point results are:\n";
 
 	public LooserView(LavaGame lavaGame, IGameController controller, IModelManager modelManager) {
 		super(lavaGame, controller, modelManager);
@@ -31,6 +38,9 @@ public class LooserView extends GameplayView {
 	@Override
 	public void show() {
 		initButtons();
+
+		PlayerNameInputListener listener = new PlayerNameInputListener(modelManager);
+		Gdx.input.getTextInput(listener, "Player name", "", "type your name");
 	}
 
 	@Override
@@ -40,7 +50,7 @@ public class LooserView extends GameplayView {
 		modelManager.getFire().draw(lavaGame.batch);
 
 		labelFont.draw(lavaGame.batch,
-				endingTxt,
+				lavaGame.generateScoreTable(endingTxt),
 				modelManager.getPlayer().x + modelManager.getPlayer().getWidth(),
 				modelManager.getPlayer().y + modelManager.getPlayer().getHeight(),
 				(int)(LavaGame.width / 4),
@@ -95,4 +105,5 @@ public class LooserView extends GameplayView {
 		Gdx.input.setInputProcessor(stage);
 		stage.addActor(playAgainButton.getButton());
 	}
+
 }
